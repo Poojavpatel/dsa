@@ -104,7 +104,8 @@
 ---       
 ## Problem Solving Patterns
 1. ### Frequency Counter Pattern
-    ```The Idea behind frequency counter is use an object to create a profile of an array```   
+    ```The Idea behind frequency counter is use an object to construct a profile of an array or a string```   
+    \
     <u>Example</u>   
     Write a function 'same' which accepts two arrays,    
     The function should return true if every value in the array has its corresponding value squared in second array,    
@@ -152,7 +153,8 @@
     ```
 
 
-1. ### 
+1. ### Multiple Pointers Pattern
+  
 
 ---       
 ## Recursion
