@@ -9,6 +9,7 @@ validAnagram('rat', 'car') // false
 validAnagram('awesome', 'awesom') // false
 */
 
+// Frequency counter ---> O(3n)
 function validAnagram(str1='', str2=''){
   if(str1.length !== str2.length) return false;
   const hash1 = {};
@@ -19,6 +20,20 @@ function validAnagram(str1='', str2=''){
   for(let key in hash1){
     if(!hash2[key]) return false;
     if(hash1[key] !== hash2[key]) return false;
+  }
+  return true;
+}
+
+// optimised ---> O(2n)
+function validAnagram(str1='', str2=''){
+  if(str1.length !== str2.length) return false;
+  const hash = {};
+  for(var i in str1) { hash[str1[i]] ? hash[str1[i]] += 1 : hash[str1[i]] = 1 };
+  for( var i in str2){
+    if(!hash[str2[i]]){
+      return false;
+    }
+    hash[str2[i]] -= 1;
   }
   return true;
 }
