@@ -231,11 +231,46 @@
       return count;
     }
     ``` 
+1. ### Sliding Window Pattern
+    ```This pattern is useful when we have an array or string and we are looking for a subset of data that is continuous```   
+    \
+    <u>Example</u>     
+
+    ```
+    
+    ```
+
+    ```
+    
+    ```
+1. ### Divide and Conquer Pattern
+    ```This pattern involves dividing a dataset into smaller chunks and then repeating a process with a subset of data```   
+
+   * Quick sort and Merge sort are examples of divide and conquer 
+   * Binary serch is also an example of divide and conquer 
+
+   Example   
+   Given a **sorted array** and a value, write a function search which returns index of value in that array  
+   return -1 if value not found   
+   search([1, 4, 6, 9, 44, 60], 9) // 3
+
+    ```
+    // Linear Search - O(n)
+    function search(arr, val){
+      for(let i=0; i< arr.length; i++){
+        if(arr[i] === val){ return i }
+      }
+      return -1;
+    }
+    ```
+
+    ```
+    // Binary Search - O(log n)
+    ```
 
 * ### Tips
-  * To avoid counting duplicates again, splice them off
+  * To avoid encountering duplicates again, splice them off
   * To remove duplicates, make a set
-  * 
 
 ---       
 ## Recursion
