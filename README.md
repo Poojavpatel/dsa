@@ -154,9 +154,9 @@
 
 
 1. ### Multiple Pointers Pattern
-   ```Create pointers that correspond to an index or position, and move toward the beginning end or middle based on condition```  
+   ```Create pointers that correspond to an index or position, and move toward the beginning end or middle based on condition.  mostly used on sorted linear structures```  
    \
-    <u>Example</u>   
+    <u>Example 1 - One pointer from left and one from right</u>   
     Write a function 'sumZero' which accepts **sorted array** of integers,    
     The function should return first pair where sum is 0,   
     Return an array that includes both nos that sum upto 0 or undefined if pair doesnt exist    
@@ -181,7 +181,7 @@
     ```
 
     ```
-    // multiple pointers refactored
+    // multiple pointers one from left and one from right
     function sumZero(arr=[]){
       let left = 0;
       let right = arr.length -1;
@@ -196,6 +196,46 @@
 
     // while loop ---> O(n)
     ``` 
+
+    \
+    <u>Example 2 - </u>   
+    Write a function 'countUniqueValues' which accepts **sorted array** of integers, and counts unique values in the array    
+    countUniqueValues([1, 1, 1, 1, 1, 3]) // 2  
+    countUniqueValues([1, 2, 3, 4, 4, 4, 7, 7, 12, 12, 13]) // 7      
+    countUniqueValues([]) // 0  
+    countUniqueValues([-2, -1, -1, 0, 1]) // 4  
+
+    ```
+    // brute force - use set or maybe hash n increase count when new value put into hash
+    function countUniqueValues(arr=[]){
+      const set = new Set(arr);
+      return set.size;
+    }
+    ```
+
+    ```
+    // multiple pointers refactored ---> O(n)
+    function countUniqueValues(arr=[]){
+      let count = 0;
+      let ptr1 = 0;
+      let ptr2 = 1;
+      while(ptr2 <= arr.length){
+        if(arr[ptr1] === arr[ptr2]){
+          ptr2++;
+        } else {
+          count++;
+          ptr1 = ptr2;
+          ptr2++;
+        }
+      }
+      return count;
+    }
+    ``` 
+
+* ### Tips
+  * To avoid counting duplicates again, splice them off
+  * To remove duplicates, make a set
+  * 
 
 ---       
 ## Recursion
