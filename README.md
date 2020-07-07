@@ -234,14 +234,46 @@
 1. ### Sliding Window Pattern
     ```This pattern is useful when we have an array or string and we are looking for a subset of data that is continuous```   
     \
-    <u>Example</u>     
+    <u>Example</u>   
+    write a function maxSubarraySum which accepts an array of integers and a number called n.  
+    The function should calculate the maximum sum of n consequitive elements in an array.  
+    maxSubarraySum([1,2,5,2,8,1,5], 2) // 10  
+    maxSubarraySum([1,2,5,2,8,1,5], 4) // 17  
+    maxSubarraySum([4,2,1,6], 1) // 6  
+    maxSubarraySum([4,2,1,6,2], 4) //  13  
 
     ```
-    
+    // brute force --> O(n*m)
+    function maxSubarraySum(arr=[], num){
+      if(num > arr.length) { return null }
+      let max = -Infinity;
+      for(var i=0; i<= arr.length - num ; i++ ){
+        let temp = 0
+        for(j=i ; j< i + num ; j++){
+          temp += arr[j];
+        }
+        max = (temp > max) ? temp : max;
+      }
+      return max;
+    }    
     ```
 
     ```
-    
+    // sliding window --> O(m + n)
+    function maxSubarraySum(arr=[], num){
+      if(num > arr.length) { return null }
+      let max = 0;
+      let tempSum = 0;
+      for(var i=0; i< num ; i++){
+        tempSum += arr[i];
+      }
+      max = (tempSum > max) ? tempSum : max;
+      for(var j=num ; j<arr.length ; j++){
+        tempSum = tempSum + arr[j] - arr[j-num];
+        max = (tempSum > max) ? tempSum : max;
+      }
+      return max;
+    }
     ```
 1. ### Divide and Conquer Pattern
     ```This pattern involves dividing a dataset into smaller chunks and then repeating a process with a subset of data```   
