@@ -306,6 +306,61 @@
 
 ---       
 ## Recursion
+  A function that calls itself, until it reaches a base case
+  
+  Recursion is used by
+  * JSON parse / JSON stringify
+  * document.getElementById and DOM traversal algorithms
+  * tree / graph traversals
+
+  ### The call stack
+  * A built in data structure that manages what happens when functions are invoked
+  * uses the stack data structure
+  * when a function is invoked it is pushed on top of stack, when return is seen or function ends it is poped
+  * observe the call stack in dev tools by adding breakpoints to the snippet
+
+  Example - Factorial
+  ```
+  // Iterative way
+
+  function factorial(num){
+    let total = 1;
+    for(var i=num ; i > 1 ; i--){
+      total = total * i;
+    }
+    return total;
+  }
+  ```
+
+  ```
+  // Recursion
+
+  function factorial(num){
+    if (num === 1) return 1;
+    return num * factorial(num - 1);
+  }
+  ```
+
+### Helper Method Recursion
+* A **design pattern** to use recursion for arrays and strings 
+* We have an outer function and inside the outer function we have an recursive helper function which calls itself
+* The reason we do this is say we deifine result = [ ], whenever the recursive function calls itself the **Result will reset**
+
+Example - Find all odds in a array using Helper Method Recursion
+```
+function collectOddValues(arr){
+  let result = [];
+  function helper(input){
+    if (input.length === 0) return;  // base condition
+    if (input[0] % 2 !== 0) result.push(input[0])
+    helper(input.slice(1));
+  }
+
+  helper(arr);
+  return result;
+}
+```
+
 ---       
 ## Searching Algorithms (Linear, Binary, Naive)
 ---       
