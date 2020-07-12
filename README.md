@@ -28,6 +28,10 @@
       Comparison of common time complexities   
       <img src="./comparision.png" width="30%"/>
 
+
+      On a grand scale  
+      <img src="./bigo_complexity_chart.jpeg" width="40%"/>
+
       ```
       // Determine the time complexity for the following function 
 
@@ -363,6 +367,15 @@ function collectOddValues(arr){
 
 ---       
 ## Searching Algorithms (Linear, Binary, Naive)
+1. ### Linear Search
+   * Checking each item one at a time
+   * Time complexity is O(n)
+
+2. ### Binary Search
+   * Divide the structure into two halves using a pivot point (middle value), search on the left or right
+   * Repeatedly dividing the search interval in half
+   * Only works on **sorted** structures
+   * Time complexity is O(log n)
 ---       
 ## Sorting Algorithms (Bubble, Selection, Insertion, Merge, Quick, Radix)
 ---       
