@@ -376,8 +376,61 @@ function collectOddValues(arr){
    * Repeatedly dividing the search interval in half
    * Only works on **sorted** structures
    * Time complexity is O(log n)
+
+3. ### Search for substring in a string
+   Example - search for omg in wowomgzomg  
+   Brute force - loop over the longer string,nested loop over shorter string, if characters dont match break out of inner loop, if you complete inner loop increment count --> O(n * m) -> O(n * n)
+
+
 ---       
-## Sorting Algorithms (Bubble, Selection, Insertion, Merge, Quick, Radix)
+## Sorting 
+  Sorting is the process of rearranging items in collection, so that items are in some kind of order  
+  [View sorting algorithm animation]: <https://www.toptal.com/developers/sorting-algorithms>
+  * Javascript default sort [6, 4, 15, 10].sort() returns [10, 15, 4, 6]
+  * Javascript default sort is according to string Unicode code points
+  * We can pass in a comparator function to tell javascript how to sort
+
+---
+## Bubble Sort   
+  > An Algorithm where the largest value bubble up to the top, one at a time
+  * In one pass, compare two values, if larger no is before smaller then swap,else continue
+  * After one pass the largest value reaches the top, ie the end of array
+  * Repeat for i-1
+  * optimization for an nearly sorted array, count if any swaps were made in last pass, if no swaps were made the array is already sorted
+  * BigO of bubble sort O(n * n)
+  * BigO for nearly sorted data O(n)
+
+---
+## Selection Sort
+  > Simillar to bubble sort,but places small values into sorted position
+  * In one pass, find the smallest value in the array and swap it with the first (i th) value
+  * After one pass the smallest value reaches the start of the array
+  * Repeat from i + 1
+  * **No of swaps made is much lower the bubble sort**
+  * BigO of selection sort O(n * n)
+
+---
+## Insertion Sort
+  >Instead of finding largest or smallest, it takes one element at a time and places it where it should go in the sorted portion
+
+  * BigO of insertion sort O(n * n)
+  * Works for continuously changing data, if new values are added to the end of the array
+
+---
+## Merge Sort
+  > Split, sort, merge
+
+  * Bubble sort, Selection sort, Insertion sort dont scale well for longer arrays
+  * Bubble sort roughly takes 20 sec for 10000 elements while merge sort takes 1 sec
+  * Merge sort uses the fact that an array with 0 or 1 element is already sorted
+  * 
+
+---
+## Comparision of sorting algorithms
+* Bubble sort, Selection sort, Insertion sort work well with shorter arrays and have nearly the same complexities
+* Bubble sort and Insertion sort works well with nearly sorted data , O(n)
+* Selection sort takes too long to sort nearly sorted data, O(n*n)
+* Insertion sort can handle new values being pushed at the end of the array
 ---       
 ## Data Structures (Classes and Instances)
 ---       
