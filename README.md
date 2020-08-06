@@ -74,10 +74,10 @@
 
       log<sub>2</sub>(8) = 3      -------->      2<sup>3</sup> = 8
 
-      ```
-      Binary Logarithm of a number roughly measures the no of times you can divide the no by 2 
+      
+      > Binary Logarithm of a number roughly measures the no of times you can divide the no by 2 
       before you get a value less then or equal to 1
-      ```
+      
 
 ---       
 ## Analysing Performance of Arrays and Objects
@@ -108,7 +108,7 @@
 ---       
 ## Problem Solving Patterns
 1. ### Frequency Counter Pattern
-    ```The Idea behind frequency counter is use an object to construct a profile of an array or a string```   
+    > The Idea behind frequency counter is use an object to construct a profile of an array or a string     
     \
     <u>Example</u>   
     Write a function 'same' which accepts two arrays,    
@@ -158,7 +158,7 @@
 
 
 1. ### Multiple Pointers Pattern
-   ```Create pointers that correspond to an index or position, and move toward the beginning end or middle based on condition.  mostly used on sorted linear structures```  
+   > Create pointers that correspond to an index or position, and move toward the beginning end or middle based on condition.  mostly used on sorted linear structures   
    \
     <u>Example 1 - One pointer from left and one from right</u>   
     Write a function 'sumZero' which accepts **sorted array** of integers,    
@@ -236,7 +236,7 @@
     }
     ``` 
 1. ### Sliding Window Pattern
-    ```This pattern is useful when we have an array or string and we are looking for a subset of data that is continuous```   
+    > This pattern is useful when we have an array or string and we are looking for a subset of data that is continuous   
     \
     <u>Example</u>   
     write a function maxSubarraySum which accepts an array of integers and a number called n.  
@@ -280,7 +280,7 @@
     }
     ```
 1. ### Divide and Conquer Pattern
-    ```This pattern involves dividing a dataset into smaller chunks and then repeating a process with a subset of data```   
+    > This pattern involves dividing a dataset into smaller chunks and then repeating a process with a subset of data   
 
    * Quick sort and Merge sort are examples of divide and conquer 
    * Binary serch is also an example of divide and conquer 
@@ -385,7 +385,9 @@ function collectOddValues(arr){
 ---       
 ## Sorting 
   Sorting is the process of rearranging items in collection, so that items are in some kind of order  
-  [View sorting algorithm animation]: <https://www.toptal.com/developers/sorting-algorithms>
+  [View sorting algorithm animation]: <https://www.toptal.com/developers/sorting-algorithms>   
+  [View Individual algo step by step]: <https://visualgo.net/en/sorting>
+
   * Javascript default sort [6, 4, 15, 10].sort() returns [10, 15, 4, 6]
   * Javascript default sort is according to string Unicode code points
   * We can pass in a comparator function to tell javascript how to sort
@@ -393,7 +395,7 @@ function collectOddValues(arr){
 ---
 ## Bubble Sort   
   > An Algorithm where the largest value bubble up to the top, one at a time
-  * In one pass, compare two values, if larger no is before smaller then swap,else continue
+  * In one pass, compare two values, if larger no is before smaller then **swap**,else continue
   * After one pass the largest value reaches the top, ie the end of array
   * Repeat for i-1
   * optimization for an nearly sorted array, count if any swaps were made in last pass, if no swaps were made the array is already sorted
@@ -403,10 +405,11 @@ function collectOddValues(arr){
 ---
 ## Selection Sort
   > Simillar to bubble sort,but places small values into sorted position
-  * In one pass, find the smallest value in the array and swap it with the first (i th) value
+  * In one pass, **find the smallest value** in the array and place it/swap it with the first (i th) value
   * After one pass the smallest value reaches the start of the array
   * Repeat from i + 1
   * **No of swaps made is much lower the bubble sort**
+  * **Works poorly for nearly sorted data as compared to bubble sort, as still have to loop the entire array to find the min value**
   * BigO of selection sort O(n * n)
 
 ---
@@ -414,7 +417,7 @@ function collectOddValues(arr){
   >Instead of finding largest or smallest, it takes one element at a time and places it where it should go in the sorted portion
 
   * BigO of insertion sort O(n * n)
-  * Works for continuously changing data, if new values are added to the end of the array
+  * Works for **continuously changing data**, if new values are added to the end of the array
 
 ---
 ## Merge Sort
@@ -422,15 +425,57 @@ function collectOddValues(arr){
 
   * Bubble sort, Selection sort, Insertion sort dont scale well for longer arrays
   * Bubble sort roughly takes 20 sec for 10000 elements while merge sort takes 1 sec
+  * BigO of Merge sort O(n log n)
   * Merge sort uses the fact that an array with 0 or 1 element is already sorted
-  * 
+  * Works by decomposing the array into smaller arrays of 0 or 1 elements, then building up a newly sorted array
+  
+  ```
+  // Merge sort implementation
+  
+  function mergeSort(arr) {
+    if(arr.length <= 1) return arr;
+    let mid = Math.floor(arr.length/2);
+    let left = mergeSort(arr.slice(0, mid));
+    let right = mergeSort(arr.slice(mid));
+    return merge(left, right);
+  }
+  ```
+   
+  ```
+  // Merging two sorted arrays - merge([1, 10, 50], [2, 14, 99, 100]) merge([1, 2, 50], [3, 7, 99, 100])
+  function merge(a=[], b=[]) {
+    const sorted = [];
+    let i = 0;
+    let j = 0;
+    while(a[i] && b[j]){
+      if(a[i] <= b[j]){
+        sorted.push(a[i]);
+        i++;
+      } else {
+        sorted.push(b[j]);
+        j++;
+      }
+    }
+    while(a[i]){
+      sorted.push(a[i]);
+      i++;
+    }
+    while(b[j]){
+      sorted.push(b[j]);
+      j++;
+    }
+    return sorted;
+  }
+  ```
+
 
 ---
 ## Comparision of sorting algorithms
-* Bubble sort, Selection sort, Insertion sort work well with shorter arrays and have nearly the same complexities
+* Bubble sort, Selection sort, Insertion sort work well with shorter arrays and have nearly the same complexities O(n * n)
 * Bubble sort and Insertion sort works well with nearly sorted data , O(n)
-* Selection sort takes too long to sort nearly sorted data, O(n*n)
+* Selection sort takes too long to sort nearly sorted data, O(n*n), as still have to loop all the way to find the min value
 * Insertion sort can handle new values being pushed at the end of the array
+* Merge sort has complexity O(n log n)
 ---       
 ## Data Structures (Classes and Instances)
 ---       
