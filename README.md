@@ -108,8 +108,8 @@
 ---       
 ## Problem Solving Patterns
 1. ### Frequency Counter Pattern
-    > The Idea behind frequency counter is use an object to construct a profile of an array or a string     
-    \
+    > The Idea behind frequency counter is use an object to construct a profile of an array or a string      
+
     <u>Example</u>   
     Write a function 'same' which accepts two arrays,    
     The function should return true if every value in the array has its corresponding value squared in second array,    
@@ -159,7 +159,7 @@
 
 1. ### Multiple Pointers Pattern
    > Create pointers that correspond to an index or position, and move toward the beginning end or middle based on condition.  mostly used on sorted linear structures   
-   \
+
     <u>Example 1 - One pointer from left and one from right</u>   
     Write a function 'sumZero' which accepts **sorted array** of integers,    
     The function should return first pair where sum is 0,   
@@ -237,7 +237,7 @@
     ``` 
 1. ### Sliding Window Pattern
     > This pattern is useful when we have an array or string and we are looking for a subset of data that is continuous   
-    \
+    
     <u>Example</u>   
     write a function maxSubarraySum which accepts an array of integers and a number called n.  
     The function should calculate the maximum sum of n consequitive elements in an array.  
@@ -307,6 +307,66 @@
 * ### Tips
   * To avoid encountering duplicates again, splice them off
   * To remove duplicates, make a set
+
+---
+## Tips and Tricks
+  ```
+  // Traverse deeply nested object using recursion
+
+  function nestedLoop(obj) {
+    const res = {};
+    function recurse(obj, current) {
+      for (const key in obj) {
+        let value = obj[key];
+        if(value != undefined) {
+          if (value && typeof value === 'object') {
+            recurse(value, key);
+          } else {
+            // Do your stuff here to var value
+            res[key] = value;
+          }
+        }
+      }
+    }
+    recurse(obj);
+    return res;
+  }
+  ```
+
+  ```
+  // Traverse deeply nested object and append keys
+  
+  function getArray(obj) {
+    const result = [];
+    function traverseObject(obj, current, appendedKeys='') {
+      for (const key in obj) {
+        let value = obj[key];
+        if(value != undefined) {
+          if (value && typeof value === 'object') {
+            if(key === 'amount'){
+              const data = {};
+              data[appendedKeys] = value.value;
+              result.push(data);
+            } else {
+              traverseObject(value, key, appendedKeys.concat(key));
+            }
+          }
+        }
+      }
+    }
+    traverseObject(obj);
+    return result;
+  }
+  ```
+
+  ```
+  // Accept n no of arguments in javascript - use arguments keyword or spread operator
+
+  function multipleArguments(...arr){ 
+    return arr.sort();
+  }
+
+  ```
 
 ---       
 ## Recursion
@@ -431,7 +491,7 @@ function collectOddValues(arr){
   
   ```
   // Merge sort implementation
-  
+
   function mergeSort(arr) {
     if(arr.length <= 1) return arr;
     let mid = Math.floor(arr.length/2);
