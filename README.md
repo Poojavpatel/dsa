@@ -485,9 +485,14 @@ function collectOddValues(arr){
 
   * Bubble sort, Selection sort, Insertion sort dont scale well for longer arrays
   * Bubble sort roughly takes 20 sec for 10000 elements while merge sort takes 1 sec
-  * BigO of Merge sort O(n log n)
+  * Time complexity of Merge sort O(n log n)  and space complexity is O(n)
   * Merge sort uses the fact that an array with 0 or 1 element is already sorted
   * Works by decomposing the array into smaller arrays of 0 or 1 elements, then building up a newly sorted array
+  * How BigO of merge sort is O(n log n) ?   
+    As no of elements(n) grows the no of times we split grows by log n.   
+    8 elements array take 3 steps, 32 elements array takes 5 steps   
+    Each time we decompose it, during merging we have O(n) comparisions.   
+    Hence O(log n) decompositions * O(n) comparision per decomposition
   
   ```
   // Merge sort implementation
@@ -528,6 +533,58 @@ function collectOddValues(arr){
   }
   ```
 
+---
+## Quick Sort
+  > 
+
+  * Like Merge sort it uses the fact that an array with 0 or 1 element is already sorted
+  * Works by selecting one element called **pivot** and finding the index where pivot should be in sorted array
+  * After finding a pivot, move all the numbers less then that no to the left and all the no greater to the right (order doesnt matter)
+  * After one pass, we know that that **pivot** is in the right spot
+  * Repeat the process for left side and then right side
+  * **Runtime of quick sort changes on how one selects a pivot**
+  * Ideally pivot should be the median value of the data
+  * Since sorting is happening in place, base condition of recursion is not that array has 0 or 1 element, rather subarray has 0 or 1 elements
+  * Time complexity of Quick sort is O(n log n) for best and avg case, O(n * n) for worst case
+  * In worst case is an already sorted array, hence instead of picking first item as a pivot, pick middle or a random element
+  * Space complexity is O(n log n)
+
+  ```
+  // Pivot helper function
+  This function should designate an element as pivot and rearrange elements such that values less then pivot are to the left and greater to the right
+  The order of values on either side doesnt matter
+  Should do this in place, DO NOT create new array
+  when done return the index of the pivot
+
+  function pivot(arr = [], start=0, end= arr.length-1){
+    let pivot = arr[start];
+    let smallerCount = 0;
+    let swapTo = start + 1;
+    for(let i = start; i<=end; i++){
+      if(arr[i] < pivot){
+        smallerCount++;
+        [arr[swapTo], arr[i]] = [arr[i], arr[swapTo]];
+        swapTo++;
+      }
+    }
+    [arr[smallerCount], arr[start]] = [arr[start], arr[smallerCount]];
+    console.log('-arr-', arr);
+    return smallerCount;
+  }
+  ```
+
+  ```
+  // Quick sort implementation
+
+  function quickSort(arr, left=0, right=arr.length-1) {
+    if(left<right){
+      let pivotIndex = pivot(arr, left, right);
+      quickSort(arr, left, pivotIndex-1);
+      quickSort(arr, pivotIndex+1, right);
+    }
+    return arr;
+  }
+  ```
 
 ---
 ## Comparision of sorting algorithms
@@ -535,7 +592,9 @@ function collectOddValues(arr){
 * Bubble sort and Insertion sort works well with nearly sorted data , O(n)
 * Selection sort takes too long to sort nearly sorted data, O(n*n), as still have to loop all the way to find the min value
 * Insertion sort can handle new values being pushed at the end of the array
-* Merge sort has complexity O(n log n)
+* Merge sort has time complexity O(n log n) and space complexity is O(n)
+* Time complexity of Quick sort is O(n log n) for best and avg case, O(n * n) for worst case and 
+* Space complexity of Quick sort is O(n log n)
 ---       
 ## Data Structures (Classes and Instances)
 ---       
