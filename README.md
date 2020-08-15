@@ -155,6 +155,31 @@
 
     // forEach O(n), for O(n) ---> O(3n) ----> O(n)
     ```
+    \
+    <u>Example 2 - </u>   
+    Given two strings, determine if second string is the anagram of first   
+    An anagram is a word formed by rearranging letters of another such as cinema from iceman      
+    validAnagram('', '') // true   
+    validAnagram('cinema', 'iceman') // true   
+    validAnagram('anagram', 'nagaram') // true   
+    validAnagram('aaz', 'zza') // false    
+    validAnagram('rat', 'car') // false    
+    validAnagram('awesome', 'awesom') // false    
+
+    ```
+    function validAnagram(str1='', str2=''){
+      if(str1.length !== str2.length) return false;
+      const hash = {};
+      for(var i in str1) { hash[str1[i]] ? hash[str1[i]] += 1 : hash[str1[i]] = 1 };
+      for( var i in str2){
+        if(!hash[str2[i]]){
+          return false;
+        }
+        hash[str2[i]] -= 1;
+      }
+      return true;
+    }
+    ``` 
 
 
 1. ### Multiple Pointers Pattern
@@ -383,7 +408,7 @@
   * when a function is invoked it is pushed on top of stack, when return is seen or function ends it is poped
   * observe the call stack in dev tools by adding breakpoints to the snippet
 
-  Example - Factorial
+  Example 1 - Factorial
   ```
   // Iterative way
 
@@ -402,6 +427,19 @@
   function factorial(num){
     if (num === 1) return 1;
     return num * factorial(num - 1);
+  }
+  ```
+
+  Example 2 - Fibonaci   
+  using recursion write a function that returns nth no in fibonaci series. Fibonaci seq - 1, 1, 2, 3, 5, 8, 13   
+  fib(4) // 3   
+  fib(5) // 5   
+  fib(10) // 55   
+
+  ```
+  function fib(n){
+    if(n <= 2) return 1;
+    return fib(n-1) + fib(n - 2);
   }
   ```
 
@@ -587,6 +625,37 @@ function collectOddValues(arr){
   ```
 
 ---
+## Heap Sort
+
+---
+## Radix Sort
+
+  > Instead of making comparisions, it uses no of digits and places them into buckets   
+
+  * All the above sorting algorithms are comparision sorts, at the base we compare two elements at once
+  * The best comparision sorts can do is O(n log n), which is in accordance to mathematical bounds
+  * There are other type of sorting algorithms that do not use comparision, they take advantage of special properties of data, One of them is **Radix Sort**
+  * For eg - there is a group of sort called integer sorting algorithms
+  * **Radix sort is a special sorting algorithm that does not use comparisions and works on lists of numbers**
+  * It uses the fact that information about the size of a number is encoded in the number of digits (More digits means a bigger no !!)
+  * Time complexity is O(nk) where k is word size of nos
+  * Space complexity is O(n + k)
+
+  ### Radix sort Working
+  * Form 10 buckets labelled from 0 to 9, incase the base is 10
+  * If base of nos is 2, buckets will be 0 and 1
+  * check the units place of all the numbers in the array, and place them accordingly into the buckets
+  * ex - 45677 will go into 7, 40 will go into 0, 7 will go into 7, etc
+  * now maintain the order in which they were in the buckets
+  * now place them again in buckets , by checking tens place
+  * ex- 45677 will go in 7, 40 will go in 4 , 567 will go in 6
+  * repeat till the the first digit of the longest no is compared
+
+  ```
+  // Radix sort Implementation
+  ```
+
+---
 ## Comparision of sorting algorithms
 * Bubble sort, Selection sort, Insertion sort work well with shorter arrays and have nearly the same complexities O(n * n)
 * Bubble sort and Insertion sort works well with nearly sorted data , O(n)
@@ -595,12 +664,115 @@ function collectOddValues(arr){
 * Merge sort has time complexity O(n log n) and space complexity is O(n)
 * Time complexity of Quick sort is O(n log n) for best and avg case, O(n * n) for worst case and 
 * Space complexity of Quick sort is O(n log n)
+* There are other type of sorting algorithms that do not use comparision, they take advantage of special properties of data, One of them is Radix Sort
+* Time complexity of radix sort is O(nk) where k is word size of nos and Space complexity is O(n + k)
+
 ---       
 ## Data Structures (Classes and Instances)
----       
-## Recursion
+
+Data structures are collections of values, the relationship among then, and the functions or operations that can be applied to the data
+
+### Class
+* A blueprint for creating objects with predefined properties and methods, like making a mould
+* class names conventionally start with capital letters
+* Constructor is a special function that runs when the class is instantiated
+* The class keyword creates a constant so you cannot redefine it
+* class instances are created using the **new** keyword
+```
+class Student() {
+  constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+}
+
+let pooja = new Student('Pooja', 'patel');
+console.log(pooja.firstName);
+```
+
+### Instance Methods
+* Methods that work on individual instance level, and not class level
+
+```
+class Student() {
+  constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  fullName() {
+    return `Your full name is ${this.firstName} ${this.lastName}`;
+  }
+}
+
+let pooja = new Student('Pooja', 'patel');
+pooja.fullName()
+```
+
+### Class Methods
+* Methods that is relevent to class, but not necessarily to individual instances
+* we use **static** keyword in front of method defination
+* static methods are called without instantiating thier class and **cannot** be called through a class instance
+* static methods are often used to create utility functions for an application
+
+```
+class Student() {
+  constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  fullName() {
+    return `Your full name is ${this.firstName} ${this.lastName}`;
+  }
+  static enrollStudents(...students) {
+    // send email to students
+  }
+}
+
+let pooja = new Student('Pooja', 'patel');
+Student.enrollStudents([pooja]);
+```
+
+* Use case of a class method
+```
+class Point{
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  static calculateDistance(a, b) {
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
+    return Math.hypot(dx,dy);
+  }
+}
+
+const p1 = new Point(5,5);
+const p2 = new Point(10,10);
+
+Point.calculateDistance(p1, p2);
+```
+
+* here each point represents a point in x,y cordinate system
+* To calculate distance between two points, it does not make much sense to call distance on a single point
+* Can be implemented like p1.calculateDistance(p2) but since it is more of a utility function, we make it a class method
+
 ---       
 ## Singly Linked Lists 
+
+> Linked Lists consists of nodes, each node has a **value** and a **pointer** to the next node   
+
+> Arrays are like elevators we can go from 6th floor to the 99th, Linked Lists are like stairs we need to go through 1, 2 to reach 3
+
+* In array each item is mapped to its index with a no, i can get the 5th item of an array
+* Linked list consist of elements with no indexes, just pointing to another element, like a train
+* Each element is called a node, a node has a **value** and a **pointer** to the next node or **null**
+* we keep track of three properties - head, tail , length
+
+Pros and Cons
+* Inserting and deleting to the start of array invloves shifting every element, in linked list its just to add an element and point to previos head
+* Random access is not possible in linked lists
+
 ---       
 ## Doubly Linked Lists 
 ---       
