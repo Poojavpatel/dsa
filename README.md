@@ -769,9 +769,122 @@ Point.calculateDistance(p1, p2);
 * Each element is called a node, a node has a **value** and a **pointer** to the next node or **null**
 * we keep track of three properties - head, tail , length
 
-Pros and Cons
+### Pros and Cons
 * Inserting and deleting to the start of array invloves shifting every element, in linked list its just to add an element and point to previos head
 * Random access is not possible in linked lists
+
+```
+// creating a Node class
+class Node{
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+const a = new Node(5);
+a.next = new Node(10);
+a.next.next = new Node(15);
+
+// console.log(a) is
+Node {
+  val: 5,
+  next: Node { val: 10, next: Node { val: 15, next: null } }
+}
+```
+
+```
+// create a class for singlyLinkedList and add push method to it
+
+class SinglyLinkedList{
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+  push(val) {
+    // if no node add node and set is as head, tail and length ++
+    // if nodes present, add new node, set next of previous node as this node, set this node as tail, length ++
+    if(this.length) {
+      const node = new Node(val);
+      this.tail.next = node;
+      this.tail = node;
+    } else {
+      const node = new Node(val);
+      this.head = node;
+      this.tail = node;
+    }
+    this.length += 1;
+    return this;
+  }
+}
+
+const a = new SinglyLinkedList();
+a.push(5);
+a.push(10);
+console.log(a);
+```
+
+```
+traverse() {
+  let node = this.head;
+  while(node){
+    console.log(node.val);
+    node = node.next;
+  }
+}
+```
+
+```
+pop() {
+  // find out the secondLastNode, set its next to null, set it as tail return last node, length --
+  if(!this.head) return undefined;  
+  let node = this.head;
+  let secondLastNode = null;
+  while(node.next){
+    secondLastNode = node;
+    node = node.next;
+  }
+  secondLastNode.next = null;
+  this.tail = secondLastNode;
+  this.length -= 1;
+  return node;
+}
+```
+
+```
+shift() {
+    // set head as head.next, length--
+    if(!this.head) return undefined;
+    const currentHead = this.head;
+    this.head = this.head.next;
+    this.length -= 1;
+    if(this.length === 0) {
+      this.tail = null;
+    }
+    return currentHead;
+  }
+```
+
+```
+unshift(val) {
+  // set next of this node as existing head, set this node as head, length++
+  const newNode = new Node(val);
+  newNode.next = this.head;
+  this.head = newNode;
+  this.length += 1;
+  if(this.length === 1) {
+    this.tail = newNode;
+  }
+  return newNode;
+}
+```
+
+### BigO of Singly Linked Lists
+* Insertion at start or end is O(1), for array its O(n) for start and O(1) for end
+* Removal from start is O(1) from end O(n), in array removal from start is O(n) and from end is O(1)
+* searching is O(n), for array too its O(n)
+* Accessing is O(n), for arrays it is O(1)
 
 ---       
 ## Doubly Linked Lists 
