@@ -879,6 +879,85 @@ unshift(val) {
   return newNode;
 }
 ```
+```
+search(val) {
+  if(val < 0) return null;
+  let counter = 0;
+  let node = this.head;
+  while(node && node.val !== val){
+    counter ++;
+    node = node.next;
+  }
+  if(node === null) {
+    return null;
+  }
+  return counter;
+}
+  
+```
+```
+get(index) {
+  if(index < 0) return null;
+  let counter = 0;
+  let node = this.head;
+  while(node && counter !== index){
+    node = node.next;
+    counter++;
+  }
+  return node;
+}
+```
+```
+set(index, value) {
+  let node = this.get(index);
+  if(!node) return null;
+  node.val = value;
+  return node;
+}
+  
+```
+```
+insert(index, value) {
+  if(index < 0) return null;
+  if(index === 0) return this.unshift(value);
+  const node = this.get(index-1);
+  const newNode = new Node(value);
+  newNode.next = node.next;
+  node.next = newNode;
+  this.length++;
+  return this;
+}
+  
+  
+```
+```
+remove(index){
+  if(index < 0) return null;
+  if(index === 0) return this.shift();
+  const node = this.get(index);
+  const prevNode = this.get(index - 1);
+  prevNode.next = node.next;
+  this.length--;
+  return node;
+}
+```
+```
+// reverse linked list in place
+reverse(){
+  let node = this.head;
+  this.head = this.tail;
+  this.tail = node;
+  let next = null;
+  let prev = null;
+  for(var i =0; i<this.length ; i++){
+    next = node.next;
+    node.next = prev;
+    prev = node;
+    node = next;
+  }
+  return this;
+}
+```
 
 ### BigO of Singly Linked Lists
 * Insertion at start or end is O(1), for array its O(n) for start and O(1) for end
