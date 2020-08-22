@@ -32,7 +32,7 @@
       On a grand scale  
       <img src="./bigo_complexity_chart.jpeg" width="40%"/>
 
-      ```
+      ```javascript
       // Determine the time complexity for the following function 
 
       function logAtMost10(n) {
@@ -52,7 +52,7 @@
       * String require n (length of string) space
       * Arrays, objects require n (length of arrays, keys of object)space 
 
-      ```
+      ```javascript
       // Determine the space complexity for the following function 
 
       function onlyElementsAtEvenIndex(array) {
@@ -118,7 +118,7 @@
     same([3, 4, 2], [4, 16]) // false   
     same([1, 2, 1], [4, 4, 1]) // false   
 
-    ```
+    ```javascript
     function same(arr1=[], arr2=[]){
       let result = true;
       arr1.forEach(value => {
@@ -135,7 +135,7 @@
     // forEach O(n), indexOf O(n), splice O(n) ---> O(n*n)
     ```
 
-    ```
+    ```javascript
     // frequency counter refactored
     function same(arr1=[], arr2=[]){
       const freq1 = {};
@@ -166,7 +166,7 @@
     validAnagram('rat', 'car') // false    
     validAnagram('awesome', 'awesom') // false    
 
-    ```
+    ```javascript
     function validAnagram(str1='', str2=''){
       if(str1.length !== str2.length) return false;
       const hash = {};
@@ -194,7 +194,7 @@
     sumZero([-4, -3, -2, -1, 0, 1, 2, 5]) // [-2, 2]   
     sumZero([-4, -3, -2, -1, 0, 1, 2, 3, 10]) // [-3, 3]  
 
-    ```
+    ```javascript
     // brute force
     function sumZero(arr=[]){
       for(let i=0; i < arr.length; i++){
@@ -209,7 +209,7 @@
     // nested loop ---> O(n*n)
     ```
 
-    ```
+    ```javascript
     // multiple pointers one from left and one from right
     function sumZero(arr=[]){
       let left = 0;
@@ -234,7 +234,7 @@
     countUniqueValues([]) // 0  
     countUniqueValues([-2, -1, -1, 0, 1]) // 4  
 
-    ```
+    ```javascript
     // brute force - use set or maybe hash n increase count when new value put into hash
     function countUniqueValues(arr=[]){
       const set = new Set(arr);
@@ -242,7 +242,7 @@
     }
     ```
 
-    ```
+    ```javascript
     // multiple pointers refactored ---> O(n)
     function countUniqueValues(arr=[]){
       let count = 0;
@@ -271,7 +271,7 @@
     maxSubarraySum([4,2,1,6], 1) // 6  
     maxSubarraySum([4,2,1,6,2], 4) //  13  
 
-    ```
+    ```javascript
     // brute force --> O(n*m)
     function maxSubarraySum(arr=[], num){
       if(num > arr.length) { return null }
@@ -287,7 +287,7 @@
     }    
     ```
 
-    ```
+    ```javascript
     // sliding window --> O(m + n)
     function maxSubarraySum(arr=[], num){
       if(num > arr.length) { return null }
@@ -315,7 +315,7 @@
    return -1 if value not found   
    search([1, 4, 6, 9, 44, 60], 9) // 3
 
-    ```
+    ```javascript
     // Linear Search - O(n)
     function search(arr, val){
       for(let i=0; i< arr.length; i++){
@@ -335,7 +335,7 @@
 
 ---
 ## Tips and Tricks
-  ```
+  ```javascript
   // Traverse deeply nested object using recursion
 
   function nestedLoop(obj) {
@@ -358,7 +358,7 @@
   }
   ```
 
-  ```
+  ```javascript
   // Traverse deeply nested object and append keys
   
   function getArray(obj) {
@@ -384,7 +384,7 @@
   }
   ```
 
-  ```
+  ```javascript
   // Accept n no of arguments in javascript - use arguments keyword or spread operator
 
   function multipleArguments(...arr){ 
@@ -409,7 +409,7 @@
   * observe the call stack in dev tools by adding breakpoints to the snippet
 
   Example 1 - Factorial
-  ```
+  ```javascript
   // Iterative way
 
   function factorial(num){
@@ -421,7 +421,7 @@
   }
   ```
 
-  ```
+  ```javascript
   // Recursion
 
   function factorial(num){
@@ -436,7 +436,7 @@
   fib(5) // 5   
   fib(10) // 55   
 
-  ```
+  ```javascript
   function fib(n){
     if(n <= 2) return 1;
     return fib(n-1) + fib(n - 2);
@@ -449,7 +449,7 @@
 * The reason we do this is say we deifine result = [ ], whenever the recursive function calls itself the **Result will reset**
 
 Example - Find all odds in a array using Helper Method Recursion
-```
+```javascript
 function collectOddValues(arr){
   let result = [];
   function helper(input){
@@ -532,7 +532,7 @@ function collectOddValues(arr){
     Each time we decompose it, during merging we have O(n) comparisions.   
     Hence O(log n) decompositions * O(n) comparision per decomposition
   
-  ```
+  ```javascript
   // Merge sort implementation
 
   function mergeSort(arr) {
@@ -544,7 +544,7 @@ function collectOddValues(arr){
   }
   ```
    
-  ```
+  ```javascript
   // Merging two sorted arrays - merge([1, 10, 50], [2, 14, 99, 100]) merge([1, 2, 50], [3, 7, 99, 100])
   function merge(a=[], b=[]) {
     const sorted = [];
@@ -587,7 +587,7 @@ function collectOddValues(arr){
   * In worst case is an already sorted array, hence instead of picking first item as a pivot, pick middle or a random element
   * Space complexity is O(n log n)
 
-  ```
+  ```javascript
   // Pivot helper function
   This function should designate an element as pivot and rearrange elements such that values less then pivot are to the left and greater to the right
   The order of values on either side doesnt matter
@@ -611,7 +611,7 @@ function collectOddValues(arr){
   }
   ```
 
-  ```
+  ```javascript
   // Quick sort implementation
 
   function quickSort(arr, left=0, right=arr.length-1) {
@@ -678,7 +678,7 @@ Data structures are collections of values, the relationship among then, and the 
 * Constructor is a special function that runs when the class is instantiated
 * The class keyword creates a constant so you cannot redefine it
 * class instances are created using the **new** keyword
-```
+```javascript
 class Student() {
   constructor(firstName, lastName) {
     this.firstName = firstName;
@@ -693,7 +693,7 @@ console.log(pooja.firstName);
 ### Instance Methods
 * Methods that work on individual instance level, and not class level
 
-```
+```javascript
 class Student() {
   constructor(firstName, lastName) {
     this.firstName = firstName;
@@ -714,7 +714,7 @@ pooja.fullName()
 * static methods are called without instantiating thier class and **cannot** be called through a class instance
 * static methods are often used to create utility functions for an application
 
-```
+```javascript
 class Student() {
   constructor(firstName, lastName) {
     this.firstName = firstName;
@@ -733,7 +733,7 @@ Student.enrollStudents([pooja]);
 ```
 
 * Use case of a class method
-```
+```javascript
 class Point{
   constructor(x, y) {
     this.x = x;
@@ -774,7 +774,7 @@ Point.calculateDistance(p1, p2);
 * Random access is not possible in linked lists
 
 ```
-// creating a Node class
+// crjavascripteating a Node class
 class Node{
   constructor(val) {
     this.val = val;
@@ -793,7 +793,7 @@ Node {
 }
 ```
 
-```
+```javascript
 // create a class for singlyLinkedList and add push method to it
 
 class SinglyLinkedList{
@@ -825,7 +825,7 @@ a.push(10);
 console.log(a);
 ```
 
-```
+```javascript
 traverse() {
   let node = this.head;
   while(node){
@@ -835,7 +835,7 @@ traverse() {
 }
 ```
 
-```
+```javascript
 pop() {
   // find out the secondLastNode, set its next to null, set it as tail return last node, length --
   if(!this.head) return undefined;  
@@ -852,7 +852,7 @@ pop() {
 }
 ```
 
-```
+```javascript
 shift() {
     // set head as head.next, length--
     if(!this.head) return undefined;
@@ -866,7 +866,7 @@ shift() {
   }
 ```
 
-```
+```javascript
 unshift(val) {
   // set next of this node as existing head, set this node as head, length++
   const newNode = new Node(val);
@@ -879,7 +879,7 @@ unshift(val) {
   return newNode;
 }
 ```
-```
+```javascript
 search(val) {
   if(val < 0) return null;
   let counter = 0;
@@ -895,7 +895,7 @@ search(val) {
 }
   
 ```
-```
+```javascript
 get(index) {
   if(index < 0) return null;
   let counter = 0;
@@ -907,7 +907,7 @@ get(index) {
   return node;
 }
 ```
-```
+```javascript
 set(index, value) {
   let node = this.get(index);
   if(!node) return null;
@@ -916,7 +916,7 @@ set(index, value) {
 }
   
 ```
-```
+```javascript
 insert(index, value) {
   if(index < 0) return null;
   if(index === 0) return this.unshift(value);
@@ -930,7 +930,7 @@ insert(index, value) {
   
   
 ```
-```
+```javascript
 remove(index){
   if(index < 0) return null;
   if(index === 0) return this.shift();
@@ -941,7 +941,7 @@ remove(index){
   return node;
 }
 ```
-```
+```javascript
 // reverse linked list in place
 reverse(){
   let node = this.head;
@@ -1014,20 +1014,102 @@ reverse(){
 * **Siblings cannot point to each other** in a tree
 * **Child cannot point to parent or parents siblings**
 
-## Real World use cases
+### Real World use cases
 * **HTML DOM structure** is a tree structure
-* **Network routing distributions like Bradcast, multicast, geocast**
+* **Network routing distributions like Broadcast, multicast, geocast**
 * **Linting softwares** use trees
 * **AI applications - like miniMax tree** used by tic-tac-toe
 * Folders in operating systems
 * **JSON** has tree structure
 
-## Types of Trees
+### Binary Search Trees
 * **Binary Trees** are special types of trees, in which each node can have **atmost 2 childrens**
-* Binary Search Trees are special type of Binary trees
+* **Binary Search Trees** are special type of Binary trees, **they excel at searching** 
+* **Binary Search Trees** are used to store data **that can be compared** ie sortable
+* If we take any node, every no less then that are located to the left side, every no greater then that are located to the right
+* Every node to the **left** of parent is **always less then** the parent
+* Every node to the **right** of parent is **always greater then** the parent
+
+```javascript
+class Node{
+  constructor(value){
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinarySearchTree{
+  constructor(){
+    this.root = null;
+  }
+}
+
+/*
+BinarySearchTree {
+  root: Node {
+    value: 10,
+    left: Node { value: 7, left: [Node], right: null },
+    right: Node { value: 15, left: null, right: [Node] }
+  }
+}
+*/
+```
+
+```javascript
+// if no root assign value as root
+// decide left or right
+// if no left or right, assign it as left or right node
+insert(value){
+  if(!this.root){
+    this.root = new Node(value);
+    return this;
+  }
+  let node = this.root;
+  while(node){
+    if(value === node.value) return undefined;
+    if(value<node.value){
+      if(!node.left){
+        node.left = new Node(value);
+        return this;
+      }
+      node = node.left;
+    }
+    else {
+      if(!node.right){
+        node.right = new Node(value);
+        return this;
+      }
+      node = node.right;
+    }
+  }
+}
+```
+```javascript
+find(value){
+  if(!this.root) return null;
+  let node = this.root;
+  while(node){
+    if(value === node.value) return true;
+    if(value < node.value){
+      node = node.left;
+    } else {
+      node = node.right;
+    }
+  }
+  return false;
+}
+```
+
+
+### BigO of Binary Search Trees
+* Insertion and searching is O(log n) though there are some exceptions
+* Eg 3 -> 17 -> 19 -> 32 -> 63 -> 91
 
 ---       
 ## Tree Traversal
+
+> Tree Traversal - Given any generic tree, how do we visit every node atleast one time
 ---       
 ## Binary Heaps
 ---       
