@@ -969,8 +969,63 @@ reverse(){
 ## Doubly Linked Lists 
 ---       
 ## Stack and Queues
+
+> Stack is an abstract data structure, that uses LIFO principle, last item in comes out first.
+> Real world examples would be call stack of the browser, stack of books, or plates, etc.   
+
+> Queue is an abstract data structure, that uses FIFO principle, first item in comes out first.
+> Real world examples would be queues at ticket counter, etc.   
+
+* Stacks are used in browsers **call stack**, and **managing function invocation**
+* Stacks are also used in **Undo/Redo**
+* **Routing and managing history** in browsers use stacks
+* Queues are used in games, where the one waiting from longest is added first
+* Queues are used in **background downloading or uploading**
+* Queues are used by **printer** to decide which doc to print first
+
+### BigO of Stacks and Queues
+* Insertion in stack is O(1), for queue using linkedLists is O(1) but using array is O(n)
+* Removal in stack is O(1), for queue using linkedLists is O(1) but using array is O(n)
+* Searching in stack and queue is O(n)
+* Access in stack and queue is O(n)
+
+
 ---       
 ## Binary Search Tree
+
+### Trees
+> Trees are non linear data structures, which has nodes in a parent-child relationship   
+
+* Nodes in trees can point to **multiple nodes**, unlike linked lists or doubly linked lists
+* Lists are linear, every thing is in a row
+* Trees are non linear, **they can branch**
+* **we have more then one pathway to a tree**
+* Singly linked list can be considered as a very special case of a tree where every parent has exactly one child
+
+### Tree Terminology
+* Root - starting topmost node of a tree
+* Parent - Any node that has child nodes 
+* Child - Any node that a parent points to
+* Leaf - A child node that doesnt point to any other nodes
+* Edge - connects two nodes
+
+### Rules for a valid tree
+* A tree should have **only one root** node
+* **Siblings cannot point to each other** in a tree
+* **Child cannot point to parent or parents siblings**
+
+## Real World use cases
+* **HTML DOM structure** is a tree structure
+* **Network routing distributions like Bradcast, multicast, geocast**
+* **Linting softwares** use trees
+* **AI applications - like miniMax tree** used by tic-tac-toe
+* Folders in operating systems
+* **JSON** has tree structure
+
+## Types of Trees
+* **Binary Trees** are special types of trees, in which each node can have **atmost 2 childrens**
+* Binary Search Trees are special type of Binary trees
+
 ---       
 ## Tree Traversal
 ---       
