@@ -993,9 +993,16 @@ reverse(){
 ---       
 ## Binary Search Tree
 
-### Trees
-> Trees are non linear data structures, which has nodes in a parent-child relationship   
+> Trees are non linear data structures, which has nodes in a parent-child relationship      
 
+> **Binary Trees** are special types of trees, in which each node can have **atmost 2 childrens**   
+
+> **Binary Search Trees** are special type of Binary trees,   
+  where Every node to the **left** of parent is **always less then** the parent    
+  and every node to the **right** of parent is **always greater then** the parent   
+
+### Trees
+* Trees are non linear data structures, which has nodes in a parent-child relationship      
 * Nodes in trees can point to **multiple nodes**, unlike linked lists or doubly linked lists
 * Lists are linear, every thing is in a row
 * Trees are non linear, **they can branch**
@@ -1246,6 +1253,43 @@ Comparision of BFS, PreOrder DFS, InOrder DFS, PostOrder DFS
 
 ---       
 ## Binary Heaps
+
+> Heap is a special case of balanced binary tree, where the root-node key is compared with its children and arranged accordingly
+
+> Balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1
+
+Heaps can be of two types:
+1. Max-Heap   
+ In a Max-Heap the key present at the root node must be greatest among the keys present at all of it’s children.   
+ The same property must be recursively true for all sub-trees in that Binary Tree.
+2. Min-Heap   
+ In a Min-Heap the key present at the root node must be minimum among the keys present at all of it’s children.  
+ The same property must be recursively true for all sub-trees in that Binary Tree
+
+<img alt="Heaps" src="https://www.geeksforgeeks.org/wp-content/uploads/MinHeapAndMaxHeap.png" width="37%"/>
+
+### Max Binary Heap
+* Since Binary, each parent has at most two children
+* Since Max, value of each parent node is greater then its children
+* no guarantees between siblings
+* Is as compact as possible, Every left and right is filled before we move down
+* left children are filled out first
+
+### Use of Heaps
+* Binary heaps are used to implement priority queues
+* Binary heaps are used with graph traversal algorithms
+
+### Representing a Heap
+* **Heaps are represented by arrays**  
+* **For any index n, its left child is stored at 2n+1 and right child at 2n+2**
+* Eg - 12 is on index 4, so its childern are on index 9 and 10, values 6 and 11
+* **For an index n, its parent is at (n-1)/2** 
+* Eg - 1 is on index 13, so 13-1/2 ie 6 th index is its parent with value 5
+
+<img alt="Heaps" src="./heaps.png" width="37%"/>
+
+
+
 ---       
 ## Hash Table
 ---       
