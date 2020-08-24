@@ -773,8 +773,8 @@ Point.calculateDistance(p1, p2);
 * Inserting and deleting to the start of array invloves shifting every element, in linked list its just to add an element and point to previos head
 * Random access is not possible in linked lists
 
-```
-// crjavascripteating a Node class
+```javascript
+// creating a Node class
 class Node{
   constructor(val) {
     this.val = val;
@@ -1110,6 +1110,62 @@ find(value){
 ## Tree Traversal
 
 > Tree Traversal - Given any generic tree, how do we visit every node atleast one time
+
+### Two Ways of Tree Traversal
+1. Breadth First Search (BFS)
+2. Depth First Search (DFS)
+    1. PreOrder DFS
+    2. InOrder DFS
+    3. PostOrder DFS
+
+<img alt="BFS vs DFS" src="https://miro.medium.com/max/1280/0*miG6xdyYzdvrB67S.gif" width="40%"/>
+   
+<br/>
+<br/>
+<br/>
+
+### Breadth First Search (BFS)
+* We use queue to manage nodes to be visited
+* Whenever a node is visited we push its left and right to the queue, they are checked according to FIFO
+
+```javascript
+// place root node in queue
+// while anything in queue
+// take first element out and put in visited
+// check if it has left add that in queue, check if right put it in queue
+breadthFirstSearch(){
+  let queue = [];
+  let visited = [];
+  queue.push(this.root);
+  while(queue.length){
+    const node = queue.shift();
+    visited.push(node.value);
+    if(node.left){
+      queue.push(node.left);
+    }
+    if(node.right){
+      queue.push(node.right);
+    }
+  }
+  return visited;
+}
+```
+<br/>
+
+### Depth First Search (DFS)
+* PreOrder - Root Left Right
+* InOrder - Left Root Right
+* PostOrder - Left Right Root   
+   
+<img alt="orders of DFS" src="https://www.bogotobogo.com/cplusplus/images/binarytree/pre_post_in_order.png" width="30%"/>
+  
+Comparision of BFS, PreOrder DFS, InOrder DFS, PostOrder DFS   
+<img alt="orders of DFS" src="https://leetcode.com/articles/Figures/145_transverse.png" width="43%"/>
+
+
+### When to use BFS and DFS
+<img alt="All Tree Traversal" src="https://i0.wp.com/algorithms.tutorialhorizon.com/files/2015/11/Tree-Traversals.png" width="27%"/>
+
 ---       
 ## Binary Heaps
 ---       
