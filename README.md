@@ -1118,11 +1118,17 @@ find(value){
     2. InOrder DFS
     3. PostOrder DFS
 
-<img alt="BFS vs DFS" src="https://miro.medium.com/max/1280/0*miG6xdyYzdvrB67S.gif" width="40%"/>
+<img alt="BFS vs DFS" src="https://miro.medium.com/max/1280/0*miG6xdyYzdvrB67S.gif" width="45%"/>
    
 <br/>
 <br/>
-<br/>
+
+Consider a tree
+```javascript
+                10
+            6       15
+          3   8         20
+```
 
 ### Breadth First Search (BFS)
 * We use queue to manage nodes to be visited
@@ -1149,6 +1155,8 @@ breadthFirstSearch(){
   }
   return visited;
 }
+
+// [10, 6, 15, 3, 8, 20]
 ```
 <br/>
 
@@ -1157,14 +1165,84 @@ breadthFirstSearch(){
 * InOrder - Left Root Right
 * PostOrder - Left Right Root   
    
-<img alt="orders of DFS" src="https://www.bogotobogo.com/cplusplus/images/binarytree/pre_post_in_order.png" width="30%"/>
+<img alt="orders of DFS" src="https://www.bogotobogo.com/cplusplus/images/binarytree/pre_post_in_order.png" width="35%"/>
   
-Comparision of BFS, PreOrder DFS, InOrder DFS, PostOrder DFS   
-<img alt="orders of DFS" src="https://leetcode.com/articles/Figures/145_transverse.png" width="43%"/>
+Recursievely call helper function    
+PreOrder
+```javascript
+// root left right
+preOrderDFS(){
+  const result = [];
+  function traverse(node){
+    result.push(node.value);
+    if(node.left) traverse(node.left);
+    if(node.right) traverse(node.right);
+  }
+  traverse(this.root);
+  return result;
+}
+// [10,6,3,8,15,20]
+```
+InOrder
+```javascript
+// left root right
+inOrderDFS(){
+  const result = [];
+  function traverse(node){
+    if(node.left) traverse(node.left);
+    result.push(node.value);
+    if(node.right) traverse(node.right);
+  }
+  traverse(this.root);
+  return result;
+}
+// [3,6,8,10,15,20]
+```
+PostOrder
+```javascript
+// left right root
+postOrderDFS(){
+  const result = [];
+  function traverse(node){
+    if(node.left) traverse(node.left);
+    if(node.right) traverse(node.right);
+    result.push(node.value);
+  }
+  traverse(this.root);
+  return result;
+}
+// [3,8,6,20,15,10]
+```
 
+Comparision of BFS, PreOrder DFS, InOrder DFS, PostOrder DFS   
+<img alt="orders of DFS" src="https://leetcode.com/articles/Figures/145_transverse.png" width="50%"/>
+
+
+### Traversing a Tree using BFS, PreOrder DFS, InOrder DFS, PostOrder DFS   
+```javascript
+                10
+            6       15
+          3   8         20
+
+
+  BFS [10, 6, 15, 3, 8, 20]
+  PreOrder DFS = [10,6,3,8,15,20]
+  InOrder DFS = [3,6,8,10,15,20]
+  PostOrder DFS = [3,8,6,20,15,10]
+
+```
+
+<img alt="All Tree Traversal" src="https://i0.wp.com/algorithms.tutorialhorizon.com/files/2015/11/Tree-Traversals.png" width="35%"/>
+<br/>
 
 ### When to use BFS and DFS
-<img alt="All Tree Traversal" src="https://i0.wp.com/algorithms.tutorialhorizon.com/files/2015/11/Tree-Traversals.png" width="27%"/>
+* Time commplexity of BFS and DFS is the same
+* If a tree is has 100 level depth, traversing using BFS will take a lot more space, as the queue will hold too many lefts and rights which itself are nested
+* **For deep trees using DFS is ideal**
+* For a tree that look likes linked list, BFS queue will always have one thing at a time in queue, using DFS in such cases will take up more space in call stack
+* For a Binary search tree, **InOrder traversal we get all nodes in underlying order**, like arrows bringing them all down
+* In such cases **InOrder returns like sorted array**
+* **PreOrder can be used to export a tree and can be easily reconstructed**
 
 ---       
 ## Binary Heaps
