@@ -1286,9 +1286,69 @@ Heaps can be of two types:
 * **For an index n, its parent is at (n-1)/2** 
 * Eg - 1 is on index 13, so 13-1/2 ie 6 th index is its parent with value 5
 
-<img alt="Heaps" src="./heaps.png" width="37%"/>
+<img alt="Heaps" src="./heaps.png" width="50%"/>
 
+### Inserting to a MaxBinaryHeap
+1. Push to the empty right node or left most node(end of the array)
+2. If the value is not in its correct position, ie value greater then its parent, we bubble up
+3. while the value is greater then its parent, swap it with parent
+```javascript
+insert(value){
+  this.values.push(value);
+  this.bubbleUp();
+}
+bubbleUp(){
+  let index = this.values.length -1;
+  let value = this.values[index];
+  while(index > 0){
+    let parentIndex = Math.floor((index-1)/2);
+    let parent = this.values[parentIndex];
+    if(value <= parent) break;
+    this.values[parentIndex] = value;
+    this.values[index] = parent;
+    index = parentIndex;
+  }
+}
+```
 
+### Down Heap/Bubble Down 
+The process of deleting the root from the heap and and restoring the properties is known as down-heap, bubble-down, cascade-down, extract min/max.
+1. Remove the Root
+1. Swap with the most recently added
+1. Bubble Down
+
+```javascript
+extractMax(){
+  const max = this.values[0];
+  const mostRecent = this.values.pop();
+  if(this.values.length) {
+    this.values[0] = mostRecent;
+    this.bubbleDown();
+  }
+  return max;
+}
+bubbleDown(){
+  let n = 0;
+  const element = this.values[0];
+  while(true){
+    let leftIndex = (2*n)+1;
+    let rightIndex = (2*n)+2;
+    let swap = false;
+    let maxIndex = this.values[leftIndex] > this.values[rightIndex] ? leftIndex : rightIndex;
+    if(this.values[n] < this.values[maxIndex]){
+      swap = true;
+      this.values[n] = this.values[maxIndex];
+      this.values[maxIndex] = element;
+      n = maxIndex;
+    }
+    if(!swap) break;
+  }
+}
+
+console.log(heap.values); // [55, 39, 41, 18, 27, 12, 33]
+console.log(heap.extractMax()); // 55
+console.log(heap.values); // [ 41, 39, 33, 18, 27, 12 ]
+```
 
 ---       
 ## Hash Table
