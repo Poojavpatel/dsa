@@ -1350,6 +1350,115 @@ console.log(heap.extractMax()); // 55
 console.log(heap.values); // [ 41, 39, 33, 18, 27, 12 ]
 ```
 
+### BigO of Binary Heaps
+* Time complexity for Insertion - O(log n)
+* Time complexity for Removal - O(log n)
+* Time complexity for Searching - O(n/2) -> O(n)
+
+## Priority Queue
+> Priority Queue is an abstract data structure, in which each element has an associated priority.
+
+* They are mostly implemented using min heaps
+* A lower number indicates a higher priority
+* Priority queues are used in **medical emergency management**, used by **operating systems to prioritize processes**
+* Implementing priority Queue using heaps, time complexity is O(log n), as compared to arrays that would be O(n)
+* The element with higest priority is taken out first and the rest are bubbled down
+
+Implementation using min heaps
+```javascript
+class Node{
+  constructor(value, priority){
+    this.value = value;
+    this.priority = priority;
+  }
+}
+
+class PriorityQueue{
+  constructor(){
+    this.values = [];
+  }
+
+  enqueue(node){
+    this.values.push(node);
+    this.bubbleUp();
+  }
+  bubbleUp(){
+    let index = this.values.length -1;
+    let node = this.values[index];
+    while(index > 0){
+      let parentIndex = Math.floor((index-1)/2);
+      let parentNode = this.values[parentIndex];
+      if(node.priority >= parentNode.priority) break;
+      this.values[parentIndex] = node;
+      this.values[index] = parentNode;
+      index = parentIndex;
+    }
+  }
+}
+
+const hospitalQueue = new PriorityQueue();
+hospitalQueue.enqueue(new Node('low fever', 5));
+/*
+PriorityQueue {
+  values: [
+    Node { value: 'broken head', priority: 1 },
+    Node { value: 'heart attack', priority: 3 },
+    Node { value: 'accident', priority: 2 },
+    Node { value: 'flu', priority: 7 },
+    Node { value: 'low fever', priority: 5 },
+    Node { value: 'concussion', priority: 4 },
+    Node { value: 'head ache', priority: 6 }
+  ]
+}
+```
+
+```javascript
+dequeue(){
+  const higestPriority = this.values[0];
+  const end = this.values.pop();
+  if(this.values.length){
+    this.values[0] = end;
+    this.bubbleDown();
+  }
+  return higestPriority;
+}
+bubbleDown(){
+  let index = 0;
+  const node = this.values[index];
+  while(true){
+    let swap = false;
+    let leftChildIndex = (2*index)+1;
+    let rightChildIndex = (2*index)+2;
+    let swapIndex = (rightChildIndex < this.values.length) && (this.values[rightChildIndex].priority < this.values[leftChildIndex].priority)
+      ? rightChildIndex : leftChildIndex;
+    if(swapIndex < this.values.length && node.priority > this.values[swapIndex].priority){
+      swap = true;
+      this.values[index] = this.values[swapIndex];
+      this.values[swapIndex] = node;
+      index = swapIndex;
+    }
+    if(!swap) break;
+  }
+}
+
+/*
+PriorityQueue {
+  values: [
+    Node { value: 'accident', priority: 2 },
+    Node { value: 'heart attack', priority: 3 },
+    Node { value: 'concussion', priority: 4 },
+    Node { value: 'flu', priority: 7 },
+    Node { value: 'low fever', priority: 5 },
+    Node { value: 'head ache', priority: 6 }
+  ]
+}
+*/
+```
+### BigO of Priority Queue using Heaps
+* Time complexity for Insertion - O(log n)
+* Time complexity for Removal - O(log n)
+* Time complexity for Searching - O(n/2) -> O(n)
+
 ---       
 ## Hash Table
 ---       
