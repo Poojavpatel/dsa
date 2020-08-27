@@ -1410,6 +1410,7 @@ PriorityQueue {
     Node { value: 'head ache', priority: 6 }
   ]
 }
+*/
 ```
 
 ```javascript
@@ -1460,7 +1461,64 @@ PriorityQueue {
 * Time complexity for Searching - O(n/2) -> O(n)
 
 ---       
-## Hash Table
+## Hash Table/Hash Map
+
+> Hash maps are used to store key-value pairs, the keys are not ordered and can be of any type string, number, etc
+
+* Hashmaps are **fast for all operations** like inserttion, removal, access
+* Hashmaps unlike other data structures are **builtin in most programming languages**
+* Python has Dictionaries
+* js has Objects and Maps
+* java go and scala have Maps
+* Ruby has Hashes
+
+### Understanding how hashing works behind the scene, implemention own key-value pair ds
+* To implement our hash map, we will use arrays, and save our color values from 0 to 9
+* To lookup values by keys like 'pink' we need to convert it to valid array indices like 3
+* **A function that converts keys to array indexes is called a hash function**
+* A hash function should return the same index for a given key, every time it is called
+
+### Hash Function
+> A Function that takes in an input of arbitary size and gives output of a fixed size
+* Hash function are used in **Hashmaps, cryptography, caches, protecting data, etc**
+
+### What makes a good hash function
+* Fast (constant time)
+* Distributes uniformly
+* Deterministic (same input generates same output)
+* Doesnt work other way (should not tell what input generated a specific output)
+
+### Writing our Hash Function
+1. To convert 'pink' to some number we can add the character codes of all digits
+    ```javascript
+    'pink'.charCodeAt(0) // 112 char code of p
+    'pink'.charCodeAt(1) // 105 char code of i
+    'a'.charCodeAt(0) - 96 // 1 place of a in alphabets
+    'p'.charCodeAt(0) - 16 // 16 place of p in alphabets
+    ```
+1. Adding places in alphabets gives 16+9+14+11 = 40, We need a value between 0 to 9
+1. **To restrict number to a limit we use modulo operator, which gives remainder**
+1. **A remainder is always less then the divisor, 40%9 is 4**
+    ```javascript
+    function hash(key, limit=100){
+      let total = 0;
+      for(var i of key){
+        total += i.charCodeAt(0) - 96;
+      }
+      return total%limit;
+    }
+
+    console.log(hash('pink', 10)); // 0
+    console.log(hash('cyan', 10)); // 3
+    console.log(hash('maroon', 10)); // 6
+    console.log(hash('orange', 10)); // 0
+    ```
+1. Problems with this function - We get same value for 'pink' and 'orange', O(n) not constant time 
+1. **To Spread out keys more Uniformly we will use prime nos**
+1. **It is also very helpful if the array's length we are putting values in is a prime no**
+1. Observations from an exp hashing 10million pairs of data using different sizes of lists   
+    length of 8191(prime no) --> 1.92 collisions while 8192(non prime) ---> 3510 collision
+
 ---       
 ## Graphs
 ---       
