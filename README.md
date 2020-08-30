@@ -26,11 +26,11 @@
       * two nested loops -> O(n<sup>2</sup>)
 
       Comparison of common time complexities   
-      <img src="./comparision.png" width="30%"/>
+      <img src="./img/comparision.png" width="30%"/>
 
 
       On a grand scale  
-      <img src="./bigo_complexity_chart.jpeg" width="40%"/>
+      <img src="./img/bigo_complexity_chart.jpeg" width="40%"/>
 
       ```javascript
       // Determine the time complexity for the following function 
@@ -1286,7 +1286,7 @@ Heaps can be of two types:
 * **For an index n, its parent is at (n-1)/2** 
 * Eg - 1 is on index 13, so 13-1/2 ie 6 th index is its parent with value 5
 
-<img alt="Heaps" src="./heaps.png" width="50%"/>
+<img alt="Heaps" src="./img/heaps.png" width="50%"/>
 
 ### Inserting to a MaxBinaryHeap
 1. Push to the empty right node or left most node(end of the array)
@@ -1585,11 +1585,93 @@ console.log(hashmap.get('green')); // '#68bt56'
 console.log(hashmap.get('blue')); // undefined
 console.log(hashmap.get('pink')); // '#765678'
 console.log(hashmap.get('cyan')); // '#678765'
-
 ```
+
+```javascript
+// return all the keys in the hashmap
+keys(){
+  let keys =[];
+  for(let i=0;i<this.keyValues.length;i++){
+    if(this.keyValues[i]){
+      for(let j=0;j<this.keyValues[i].length;j++){
+        keys.push(this.keyValues[i][j][0]);
+      }
+    }
+  }
+  return keys;
+}
+// return all the unique values in the hashmap
+values(){
+  let values =[];
+  for(let i=0;i<this.keyValues.length;i++){
+    if(this.keyValues[i]){
+      for(let j=0;j<this.keyValues[i].length;j++){
+        if(!values.includes(this.keyValues[i][j][1])){
+          values.push(this.keyValues[i][j][1]);
+        }
+      }
+    }
+  }
+  return values;
+}
+
+// [ 'green', 'pink', 'cyan', 'orange', 'maroon', 'red' ]
+// [ '#68bt56', '#765678', '#678765', '#tndu74', '#878787' ]
+```
+
+### BigO of hash maps
+* Insertion, Deletion, Access in best and average case is **O(1)**
+* In worst case(a hash function that maps every key to the same hash) Insertion, Deletion, Access takes O(n)
 
 ---       
 ## Graphs
+
+> A Graph consists of a finite set of vertices(or nodes) and set of Edges which connect a pair of nodes.   
+> They are used to represent elements that share connections   
+
+* **A Tree is a special type of a graph, in which any two vertices are connected by exactly one path**
+* **In graphs there is no root or parent node or starting point**, all nodes are equal
+
+### Graphs are highly used in
+* Social Networks
+* Location/Mapping
+* Recommendation Engines
+* Internet 
+* Web pages linking to other pages
+* Visual Hierarchy
+* Routing Algorithms
+* EVERYWHERE
+
+### Types of Graphs
+* Undirected Graphs   
+  Edges do not have a specific direction.You can go from one node to another and return through that same path   
+  **Example - Facebook friends graph**   
+  <img alt="Graph" src="https://cdn-media-1.freecodecamp.org/images/vQ77VuGVlTR95GgMxzyKqydIqoRJcPcWrigy" width="30%"/>
+
+* Directed Graphs   
+  In directed graphs, edges have a direction. They go from one node to another, and there is no way to return to the initial node through that edge   
+  **Example - Instagram followers graph**   
+  <img alt="Directed Graph" src="https://cdn-media-1.freecodecamp.org/images/5vbqwpnuO8nAdj51kN4Bk8ozdpL6WYWkkQHu" width="30%"/>
+
+* Weighed Graphs
+  In weighted graphs, each edge has a value associated with it called weight.   
+  Weights could represent distance, time, the number of connections shared between two users in a social network   
+  **Example - Google Maps are weighted with distance**   
+  <img alt="Weighed Graph" src="https://cdn-media-1.freecodecamp.org/images/H1ASU4s0MP52QUyuqo4LIjlvZcR4kn7lkq2V" width="30%"/>
+
+* Cycles in a graph   
+  <img alt="Cycle in a Graph" src="https://cdn-media-1.freecodecamp.org/images/r2bS-ZNjPVqOXoOq3Z7OJrNoWCSLqemZzkmv" width="30%"/>
+
+### Store graphs
+* Matrix is a 2 dimensional structure mostly implemented using nested arrays
+* Adjecency Matrix - Connections can be represented by Boolean values in adjacency matrix   
+<img alt="graph representation using Adjecency Matrix" src="https://static.javatpoint.com/ds/images/sequential-representation.png" width="30%"/>
+
+* Adjecency List - store all connections of a node n at the nth value in array    
+For strings use hash tables  
+<img alt="graph representation using Adjecency list" src="./img/adjacency_list.png" width="30%"/>
+
+
 ---       
 ## Graph Traversal
 ---       
