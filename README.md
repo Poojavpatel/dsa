@@ -1665,15 +1665,90 @@ values(){
 ### Store graphs
 * Matrix is a 2 dimensional structure mostly implemented using nested arrays
 * Adjecency Matrix - Connections can be represented by Boolean values in adjacency matrix   
-<img alt="graph representation using Adjecency Matrix" src="https://static.javatpoint.com/ds/images/sequential-representation.png" width="30%"/>
+  <img alt="graph representation using Adjecency Matrix" src="https://static.javatpoint.com/ds/images/sequential-representation.png" width="50%"/>
 
 * Adjecency List - store all connections of a node n at the nth value in array    
 For strings use hash tables  
-<img alt="graph representation using Adjecency list" src="./img/adjacency_list.png" width="30%"/>
+  <img alt="graph representation using Adjecency list" src="./img/adjacency_list.png" width="45%"/>
 
+### Adjecency Matrix vs Adjecency List
+* **Adjecency List can take up less space** (in sparce graphs) while Adjecency Matrix takes more space
+* **In Adjecency List its faster to iterate over all edges** as compared to Adjecency Matrix     
+In Adjecency Matrix we store values that have 0 ie no edge, while in Adjecency List we only store edges
+* **Adjecency List can be slower to lookup for specific edge** as compared to Adjecency Matrix   
+Querying for edge is O(1) for Adjecency Matrix and O(v + e) for Adjecency List
 
+### Implementing Graph using Adjecency List
+```javascript
+class Graph{
+  constructor(){
+    this.list = {};
+  }
+  addVertex(vertex){
+    if(!this.list[vertex]) this.list[vertex] = [];
+  }
+  addEdge(vertex1, vertex2){
+    if(!this.list[vertex1] || !this.list[vertex2]) return undefined;
+    this.list[vertex1].push(vertex2);
+    this.list[vertex2].push(vertex1);
+  }
+}
+
+const graph = new Graph();
+graph.addVertex('Tokyo');
+graph.addVertex('Rio');
+graph.addVertex('Denver');
+graph.addVertex('Hongkong');
+console.log(graph);
+// Graph { list: { Tokyo: [], Rio: [], Denver: [], Hongkong: [] } }
+graph.addEdge('Tokyo', 'Rio');
+graph.addEdge('Tokyo', 'Denver');
+graph.addEdge('Hongkong', 'Denver');
+graph.addEdge('Hongkong', 'Rio');
+console.log(graph);
+// Graph { list: { Tokyo: [ 'Rio', 'Denver' ], Rio: [ 'Tokyo', 'Hongkong' ], Denver: [ 'Tokyo', 'Hongkong' ], Hongkong: [ 'Denver', 'Rio' ] } }
+```
+
+```javascript
+removeEdge(vertex1, vertex2){
+  if(!this.list[vertex1] || !this.list[vertex2]) return undefined;
+  this.list[vertex1] = this.list[vertex1].filter(v => v !== vertex2);
+  this.list[vertex2] = this.list[vertex2].filter(v => v !== vertex1);
+}
+// remove the vertex and all of its connections and it from all connections
+removeVertex(vertex){
+  if(!this.list[vertex]) return undefined;
+  for(var connection of this.list[vertex]){
+    this.removeEdge(vertex, connection);
+  }
+  delete this.list[vertex];
+}
+
+graph.removeEdge('Tokyo', 'Denver');
+console.log(graph);
+// Graph { list: { Tokyo: [ 'Rio' ], Rio: [ 'Tokyo', 'Hongkong' ], Denver: [ 'Hongkong' ], Hongkong: [ 'Denver', 'Rio' ]}}
+graph.removeVertex('Hongkong');
+console.log(graph);
+// Graph { list: { Tokyo: [ 'Rio' ], Rio: [ 'Tokyo' ], Denver: [] } }
+```
 ---       
 ## Graph Traversal
+
+> Graph Traversal - Visiting every vertex in a graph atleast once
+
+### Graph Traversal is used in
+* Web crawlers
+* Finding closest matches/ reccomendation
+* peer to peer networking
+* GPS navigation
+* Solving mazes, AI shortest path to win a game
+
+### Traversing a Graph
+* Since graphs do not have root or parent nodes or hierarchy DFS and BFS seems confusing
+* For a graph that has a node 'A' which is connected to 'B' 'E' and 'P'
+* BFS means vistiting 'A' and then all its connections ie 'B' 'E' 'P' in any order, and then visiting their connections
+* DFS means vistiting 'A' then visiting one of its connections 'B' and then visiting its connections 'C', before visiting 'E'
+
 ---       
 ## Dijkstras Algorithm
 ---       
