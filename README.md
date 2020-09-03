@@ -1749,6 +1749,68 @@ console.log(graph);
 * BFS means vistiting 'A' and then all its connections ie 'B' 'E' 'P' in any order, and then visiting their connections
 * DFS means vistiting 'A' then visiting one of its connections 'B' and then visiting its connections 'C', before visiting 'E'
 
+<img alt="graph traversal bfs vs dfs" src="https://slideplayer.com/slide/12046872/69/images/37/Graph+Traversal+BFS+traversal+examples%3A+DFS+traversal+examples+%3A+1+2+3.jpg" width="45%"/>
+
+### Implementing graph traversal
+```javascript
+const graph = new Graph();
+graph.addVertex('A');
+graph.addVertex('B');
+graph.addVertex('C');
+graph.addVertex('D');
+graph.addVertex('E');
+graph.addVertex('F');
+graph.addEdge('A', 'B');
+graph.addEdge('A', 'C');
+graph.addEdge('B', 'D');
+graph.addEdge('C', 'E');
+graph.addEdge('D', 'E');
+graph.addEdge('D', 'F');
+graph.addEdge('E', 'F');
+console.log(graph);
+// Graph {list: {A: [ 'B', 'C' ],B: [ 'A', 'D' ],C: [ 'A', 'E' ],D: [ 'B', 'E', 'F' ],E: [ 'C', 'D', 'F' ],F: [ 'D', 'E' ]}}
+/* 
+                                A
+                          
+                        B             C
+                                        
+                        D ----------- E
+                                        
+                                F  
+
+*/
+```
+
+### DFS using recursion
+```javascript
+// Wrote it myself
+dfsRecursive(vertex){
+  let visited = [];
+  let list = this.list;
+  (function traverseRecursievely(vertex){
+    visited.push(vertex);
+    if(!(list[vertex] && list[vertex].length)) return null;
+    for(let connection of list[vertex]){
+      if(!visited.includes(connection)){
+        traverseRecursievely(connection)
+      }
+    }
+  })(vertex);
+  return visited;
+}
+
+// [ 'A', 'B', 'D', 'E', 'C', 'F' ]
+// used closure, can be done using simple function defination too
+// instead of using includes, maintain a hash
+```
+### DFS Iteratievely / Using our own Stack instead of using call stack
+```javascript
+
+```
+### BFS 
+```javascript
+
+```
 ---       
 ## Dijkstras Algorithm
 ---       
