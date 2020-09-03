@@ -41,7 +41,23 @@ class Graph{
   }
   // writing own stack instead of using call stack
   dfsIteratievely(vertex){
-
+    if(!vertex || !this.list[vertex]) return false;
+    let result = [];
+    let visited = {};
+    let stack = [];
+    stack.push(vertex);
+    while(stack.length){
+      const node = stack.pop();
+      result.push(node);
+      if(!visited[node]) visited[node] = true;
+      for(let connection of this.list[node]){
+        let peek = stack[stack.length - 1];
+        if(!visited[connection] && peek !== connection) {
+          stack.push(connection);
+        }
+      }
+    }
+    return result;
   }
 }
 
@@ -61,5 +77,5 @@ graph.addEdge('D', 'F');
 graph.addEdge('E', 'F');
 console.log(graph);
 // Graph {list: {A: [ 'B', 'C' ],B: [ 'A', 'D' ],C: [ 'A', 'E' ],D: [ 'B', 'E', 'F' ],E: [ 'C', 'D', 'F' ],F: [ 'D', 'E' ]}}
-console.log(graph.dfsRecursive('A')); // [ 'A', 'B', 'D', 'E', 'C', 'F' ]
-console.log(graph.dfsIteratievely('A'));
+// console.log(graph.dfsRecursive('A')); // [ 'A', 'B', 'D', 'E', 'C', 'F' ]
+console.log(graph.dfsIteratievely('A')); // [ 'A', 'C', 'E', 'F', 'D', 'B' ]

@@ -1805,7 +1805,28 @@ dfsRecursive(vertex){
 ```
 ### DFS Iteratievely / Using our own Stack instead of using call stack
 ```javascript
+dfsIteratievely(vertex){
+  if(!vertex || !this.list[vertex]) return false;
+  let result = [];
+  let visited = {};
+  let stack = [];
+  stack.push(vertex);
+  while(stack.length){
+    const node = stack.pop();
+    result.push(node);
+    if(!visited[node]) visited[node] = true;
+    for(let connection of this.list[node]){
+      let peek = stack[stack.length - 1];
+      if(!visited[connection] && peek !== connection) {
+        stack.push(connection);
+      }
+    }
+  }
+  return result;
+}
 
+// [ 'A', 'C', 'E', 'F', 'D', 'B' ]
+// writing own stack instead of using call stack
 ```
 ### BFS 
 ```javascript
