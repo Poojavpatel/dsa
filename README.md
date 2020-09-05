@@ -1816,8 +1816,8 @@ dfsIteratievely(vertex){
     result.push(node);
     if(!visited[node]) visited[node] = true;
     for(let connection of this.list[node]){
-      let peek = stack[stack.length - 1];
-      if(!visited[connection] && peek !== connection) {
+      if(!visited[connection]) {
+        visited[connection] = true;
         stack.push(connection);
       }
     }
@@ -1830,7 +1830,28 @@ dfsIteratievely(vertex){
 ```
 ### BFS 
 ```javascript
+bfs(vertex){
+  if(!vertex || !this.list[vertex]) return false;
+  let result = [];
+  let visited = {};
+  let queue = [];
+  queue.push(vertex);
+  while(queue.length){
+    const node = queue.shift();
+    result.push(node);
+    if(!visited[node]) visited[node] = true;
+    for(let connection of this.list[node]){
+      if(!visited[connection]){
+        visited[connection] = true;
+        queue.push(connection);
+      }
+    }
+  }
+  return result;
+}
 
+// [ 'A', 'B', 'C', 'D', 'E', 'F' ]
+// Using a queue instead of a stack
 ```
 ---       
 ## Dijkstras Algorithm

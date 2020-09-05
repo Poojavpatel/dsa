@@ -51,9 +51,28 @@ class Graph{
       result.push(node);
       if(!visited[node]) visited[node] = true;
       for(let connection of this.list[node]){
-        let peek = stack[stack.length - 1];
-        if(!visited[connection] && peek !== connection) {
+        if(!visited[connection]) {
+          visited[connection] = true;
           stack.push(connection);
+        }
+      }
+    }
+    return result;
+  }
+  bfs(vertex){
+    if(!vertex || !this.list[vertex]) return false;
+    let result = [];
+    let visited = {};
+    let queue = [];
+    queue.push(vertex);
+    while(queue.length){
+      const node = queue.shift();
+      result.push(node);
+      if(!visited[node]) visited[node] = true;
+      for(let connection of this.list[node]){
+        if(!visited[connection]){
+          visited[connection] = true;
+          queue.push(connection);
         }
       }
     }
@@ -78,4 +97,5 @@ graph.addEdge('E', 'F');
 console.log(graph);
 // Graph {list: {A: [ 'B', 'C' ],B: [ 'A', 'D' ],C: [ 'A', 'E' ],D: [ 'B', 'E', 'F' ],E: [ 'C', 'D', 'F' ],F: [ 'D', 'E' ]}}
 // console.log(graph.dfsRecursive('A')); // [ 'A', 'B', 'D', 'E', 'C', 'F' ]
-console.log(graph.dfsIteratievely('A')); // [ 'A', 'C', 'E', 'F', 'D', 'B' ]
+// console.log(graph.dfsIteratievely('A')); // [ 'A', 'C', 'E', 'F', 'D', 'B' ]
+console.log(graph.bfs('A')); // [ 'A', 'B', 'C', 'D', 'E', 'F' ]
