@@ -2060,8 +2060,23 @@ console.log(graph.dijkstra('A','F')); // [ 'A', 'C', 'D', 'F' ]
 console.log(graph.dijkstra('B','C')); // [ 'B', 'A', 'C' ]
 console.log(graph.dijkstra('B','F')); // [ 'B', 'E', 'F' ]
 ```
-
 ---       
 ## Dynamic Programming
+
+> Method of solving a complex problem by breaking it down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions
+
+> Indicators on when to use Dynamic Programming - Overlapping Subproblems, Optimal Substructure
+
+* Most problems cant solved by dynamic programming, but for the few that can be solved it makes a very huge difference in performance
+
+### Overlapping Subproblems
+> A problem is said to have **overlapping subproblems** if it can be broken down into sub problems which are reused several times
+
+* Eg - Fibonacci Sequence   
+<img src="./img/fibonaci.png" width="30%"/>
+   
+* To find fibonacci(5) we add fibonacci(4) + fibonacci(3) , We calculate fibonacci(3) twice
+
+### Optimal Substructure
 ---       
 ## Wild West
