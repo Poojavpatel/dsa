@@ -1854,7 +1854,156 @@ bfs(vertex){
 // Using a queue instead of a stack
 ```
 ---       
-## Dijkstras Algorithm
+## Dijkstras Algorithm (Shortest Path algorithm)
+
+> Finds the shortest path between two vertices/nodes on a graph
+
+* Most famous and widely used algorithms around
+
+### Algorithm
+  #### Find the shortest path from A to E
+   <img alt="Approch of Dijkstras Algorithm" src="./img/dijkstras.png" width="35%"/>   
+
+  1. Every time we look to visit a new node, we pick the node with the smallest know distance to visit first
+  1. Once we have moved to that node, we look at each of its neighbour
+  1. For each neighbouring node, we calculate distance by summing the total edges that led to the node we are checking **from starting node**
+  1. If the new total distance to a node is less then the previous total, we store the new shorter distace for that node
+
+### The Approch of Dijkstras Algorithm
+1. Create a weighted graph and add vertices, edges and weights
+1. Create an array 'visited' which will save all visited nodes, initially empty   
+    ` visited : [] `
+1. Create a priority queue which has all vertices and their shortest distances from 'A', distances initially '0' for 'A' and 'Infinity' for all other nodes   
+    ```javascript
+    [
+      {vertex:'A', shortestDist: 0},
+      {vertex:'B', shortestDist: Infinity},
+      {vertex:'C', shortestDist: Infinity},
+      {vertex:'D', shortestDist: Infinity},
+      {vertex:'E', shortestDist: Infinity},
+      {vertex:'F', shortestDist: Infinity},
+    ]
+    ```
+1. Create a hash called 'previous' which will store where did we come from to reach a node, eg - F can be reached from D, initially will be null   
+    `{ A : null, B : null, C : null, D : null, E : null, F : null }`
+1. Select the node with the lowest priority/shortest distances from the priority queue, ie 'A' and Look at each of its neighbours 
+1. First neighbour is 'B', look at the shortestDist for B which is Infinity    
+    now we reached B from A and the distance was 4 which is less then Infinity, so we update the priority queue as 4 is the shortest distance to get to B    
+    `{vertex:'B', shortestDist: 4}`       
+    since we reached B from A we update previous as    
+    `{ A : null, B : 'A', C : null, D : null, E : null, F : null }`
+1. Simillarly for C   
+    `{vertex:'C', shortestDist: 2}`   
+    `{ A : null, B : 'A', C : 'A', D : null, E : null, F : null }`
+1. Since all neighbours of A are done, and add it to visited   
+    ` visited : ['A'] `
+1. Repeat by picking the lowest priority/shortest distance from priority queue, ie C and Look at each of its neighbours, ie D and F
+    ```javascript
+    [
+      {vertex:'A', shortestDist: 0},
+      {vertex:'B', shortestDist: 4},
+      {vertex:'C', shortestDist: 2},
+      {vertex:'D', shortestDist: Infinity},
+      {vertex:'E', shortestDist: Infinity},
+      {vertex:'F', shortestDist: Infinity},
+    ]
+    ```
+1. After visiting D and F the state will be like
+    ```javascript
+    [
+      {vertex:'A', shortestDist: 0},
+      {vertex:'B', shortestDist: 4},
+      {vertex:'C', shortestDist: 2},
+      {vertex:'D', shortestDist: 4},
+      {vertex:'E', shortestDist: Infinity},
+      {vertex:'F', shortestDist: 6},
+    ]
+    ```
+    `{ A : null, B : 'A', C : 'A', D : 'C', E : null, F : 'C' }`   
+    `visited : ['A', 'C']`
+1. Repeat for all nodes that are not in visited based on shortestDist in priority queue
+1. At the End the values will be
+    ```javascript
+    [
+      {vertex:'A', shortestDist: 0},
+      {vertex:'B', shortestDist: 4},
+      {vertex:'C', shortestDist: 2},
+      {vertex:'D', shortestDist: 4},
+      {vertex:'E', shortestDist: 6},
+      {vertex:'F', shortestDist: 5},
+    ]
+    ```
+    `{ A : null, B : 'A', C : 'A', D : 'C', E : 'F', F : 'D' }`   
+    `visited : ['A', 'C', 'B', 'D']`
+1. So the shortest distance from A to E will be as   
+    `{ A : null, B : 'A', C : 'A', D : 'C', E : 'F', F : 'D' }`    
+    E --> F --> D --> C --> A   
+    ie A -> C -> D -> F -> E  distance is 6
+
+  --- 
+
+### Implementation
+### Implementing a weighted graph
+```javascript
+class WeighedGraph{
+  constructor(){
+    this.list = {};
+  }
+  addVertex(vertex){
+    if(!this.list[vertex]) this.list[vertex] = [];
+  }
+  addEdge(vertex1, vertex2, weight){
+    if(!this.list[vertex1] || !this.list[vertex2]) return undefined;
+    this.list[vertex1].push({vertex:vertex2, weight});
+    this.list[vertex2].push({vertex:vertex1, weight});
+  }
+}
+
+const graph = new WeighedGraph();
+graph.addVertex('A');
+graph.addVertex('B');
+graph.addVertex('C');
+graph.addVertex('D');
+graph.addVertex('E');
+graph.addVertex('F');
+graph.addEdge('A', 'B', 4);
+graph.addEdge('A', 'C', 2);
+graph.addEdge('B', 'E', 3);
+graph.addEdge('C', 'D', 2);
+graph.addEdge('C', 'F', 4);
+graph.addEdge('D', 'F', 1);
+graph.addEdge('D', 'E', 3);
+graph.addEdge('E', 'F', 1);
+
+/* 
+{
+  "list": {
+    "A": [{"vertex": "B","weight": 4},{"vertex": "C","weight": 2}],
+    "B": [{"vertex": "A","weight": 4},{"vertex": "E","weight": 3}],
+    "C": [{"vertex": "A","weight": 2},{"vertex": "D","weight": 2},{"vertex": "F","weight": 4}],
+    "D": [{"vertex": "C","weight": 2},{"vertex": "F","weight": 1},{"vertex": "E","weight": 3}],
+    "E": [{"vertex": "B","weight": 3},{"vertex": "D","weight": 3},{"vertex": "F","weight": 1}],
+    "F": [{"vertex": "C","weight": 4},{"vertex": "D","weight": 1},{"vertex": "E","weight": 1}]
+  }
+}
+*/
+
+```
+### Implementing a simple priority queue
+```javascript
+class PriorityQueue{
+  constructor(){
+    this.values = [];
+  }
+  enqueue(vertex, shortestDist){
+    this.values.push({vertex, shortestDist});
+    this.values.sort((a,b) => a.shortestDist - b.shortestDist);
+  }
+  dequeue(){
+    return this.values.shift();
+  }
+}
+```
 ---       
 ## Dynamic Programming
 ---       
