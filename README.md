@@ -2065,18 +2065,83 @@ console.log(graph.dijkstra('B','F')); // [ 'B', 'E', 'F' ]
 
 > Method of solving a complex problem by breaking it down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions
 
-> Indicators on when to use Dynamic Programming - Overlapping Subproblems, Optimal Substructure
+> Indicators on when to use Dynamic Programming - Overlapping Subproblems **and** Optimal Substructure
 
 * Most problems cant solved by dynamic programming, but for the few that can be solved it makes a very huge difference in performance
 
 ### Overlapping Subproblems
 > A problem is said to have **overlapping subproblems** if it can be broken down into sub problems which are reused several times
 
-* Eg - Fibonacci Sequence   
+* Eg of overlapping subproblems - Fibonacci Sequence   
 <img src="./img/fibonaci.png" width="30%"/>
    
 * To find fibonacci(5) we add fibonacci(4) + fibonacci(3) , We calculate fibonacci(3) twice
+* Merge Sort is **not** an example of overlapping subproblems, We do the same process recursievely but the values are different everytime
+* mergeSort([10,70,30,15]) -> mergeSort([10,70]) and mergeSort([30,15]) -> mergeSort([10]) and mergeSort([70]) and mergeSort([30]) and mergeSort([15])
+* storing the solution of mergeSort([30]) or any other smaller part, will have **no use**
 
 ### Optimal Substructure
----       
-## Wild West
+> A problem is said to have **optimal substructure** if an optimal solution can be constructed from optimal solutions of its sub problems
+
+* Eg - Fibonacci Sequence
+* The optimal solution for fibonacci(5) can be constructed from optimal solution for fibonacci(4) and fibonacci(3)
+* Eg - Shortest Path on a graph
+* For a seq A -> B -> C -> D -> E, the best way to E can be constructed from the best way to D
+* Longest Simple Path is **not** an example of optimal substructure (simple means no repeating)
+* Longest path from A to C = A -> B -> C    and C to D = C -> B -> D
+* A to D **not equal to** A -> B -> C -> B -> D,   ( A to D != A to C + C to D )
+* Finding cheapest flight from SanFrancisco to Alaska, **looks like a optimal substructure but is not**
+* The cheapest flight from SanFrancisco to Alaska is as SanFrancisco -> Seatle -> Alaska
+* So the cheapest flight from SanFrancisco to Seatle, should have been SanFrancisco -> Seatle but **its not**, its SanFrancisco -> Portland -> Seatle
+* So the cheapest flight from SanFrancisco to Alaska should be SanFrancisco -> Portland -> Seatle -> Alaska, **but its not the case**, there are various other parameters
+
+### Solving without Dynamic Programming (Recursievely)
+* Since Fibonacci Sequence has both overlapping subproblems and optimal substructure we can solve it using dynamic programming
+  ```javascript
+  function fib(n){
+    if(n <= 2) return 1;
+    return fib(n-1) + fib(n-2);
+  }
+  ```
+* Recursive solution has a time complexity of **O(2 ^ n) which is Terrible**
+* For calculating fib(7), fib(5) is calculated twice fib(4) 3 times and fib(3) 5 times
+* Calculating fib(45) takes upto 10 sec and fib(over 100) takes way too long and call stack is exceded
+
+### Refactoring using Dynamic Programming
+* Using **Memoization**
+> Memoization - Storing the results in memo and passing it to every call   
+
+  ```javascript
+  function memoizedFib(n, memo = []){
+    console.log(memo);
+    if(n <= 2) return 1;
+    if(memo[n]) return memo[n];
+    var result = memoizedFib(n-1, memo) + memoizedFib(n-2, memo);
+    memo[n] = result;
+    return result;
+  }
+  ```
+* We storing the results in memo and passing it to every call
+* Memo for n=10 is [ <3 empty items>, 2, 3, 5, 8, 13, 21, 34 ]
+* Memoization solution has a time complexity of **O(n) which is a lot better**
+* For calculating fib(7), everything is calculated just once
+<br/>
+
+> Tabulation - A Bottom-up Approach
+* Tabulation - Storing the result of a previous result in a table (usually an array)
+* Usually done using iteration
+* Better **Space Complexity** can be achived using Tabulation
+  ```javascript
+  function tabulatedFib(n){
+    if(n <= 2) return 1;
+    var fibNums = [0,1,1];
+    for(var i=3 ; i <= n ; i++){
+      fibNums[i] = fibNums[i-1] + fibNums[i-2]; 
+    }
+    return fibNums[n];
+  }
+  ```
+
+* Tabulated solution has a time complexity of **O(n) which is same as memoized solution**
+* **Tabulated approch is a lot better then memoized as even the memoized would exceed call stack above fib(100000)**
+* Tablulated version return Infinity for fib(100000) which is math and roundoff, doesnt break though
