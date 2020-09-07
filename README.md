@@ -825,6 +825,9 @@ a.push(10);
 console.log(a);
 ```
 
+<details>
+<summary>Traverse</summary>
+
 ```javascript
 traverse() {
   let node = this.head;
@@ -834,6 +837,10 @@ traverse() {
   }
 }
 ```
+</details>
+
+<details>
+<summary>Pop</summary>
 
 ```javascript
 pop() {
@@ -851,6 +858,10 @@ pop() {
   return node;
 }
 ```
+</details>
+
+<details>
+<summary>Shift</summary>
 
 ```javascript
 shift() {
@@ -865,6 +876,10 @@ shift() {
     return currentHead;
   }
 ```
+</details>
+
+<details>
+<summary>Unshift</summary>
 
 ```javascript
 unshift(val) {
@@ -879,6 +894,11 @@ unshift(val) {
   return newNode;
 }
 ```
+</details>
+
+<details>
+<summary>Search</summary>
+
 ```javascript
 search(val) {
   if(val < 0) return null;
@@ -892,9 +912,13 @@ search(val) {
     return null;
   }
   return counter;
-}
-  
+} 
 ```
+</details>
+
+<details>
+<summary>Get</summary>
+
 ```javascript
 get(index) {
   if(index < 0) return null;
@@ -907,6 +931,11 @@ get(index) {
   return node;
 }
 ```
+</details>
+
+<details>
+<summary>Set</summary>
+
 ```javascript
 set(index, value) {
   let node = this.get(index);
@@ -916,6 +945,11 @@ set(index, value) {
 }
   
 ```
+</details>
+
+<details>
+<summary>Insert</summary>
+
 ```javascript
 insert(index, value) {
   if(index < 0) return null;
@@ -926,10 +960,14 @@ insert(index, value) {
   node.next = newNode;
   this.length++;
   return this;
-}
-  
-  
+} 
 ```
+</details>
+
+
+<details>
+<summary>Remove</summary>
+
 ```javascript
 remove(index){
   if(index < 0) return null;
@@ -941,6 +979,11 @@ remove(index){
   return node;
 }
 ```
+</details>
+
+<details>
+<summary>Reverse</summary>
+
 ```javascript
 // reverse linked list in place
 reverse(){
@@ -958,6 +1001,7 @@ reverse(){
   return this;
 }
 ```
+</details>
 
 ### BigO of Singly Linked Lists
 * Insertion at start or end is O(1), for array its O(n) for start and O(1) for end
