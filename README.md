@@ -329,10 +329,6 @@
     // Binary Search - O(log n)
     ```
 
-* ### Tips
-  * To avoid encountering duplicates again, splice them off
-  * To remove duplicates, make a set
-
 ---
 ## Tips and Tricks
   ```javascript
@@ -1400,9 +1396,9 @@ console.log(heap.values); // [ 41, 39, 33, 18, 27, 12 ]
 * Time complexity for Searching - O(n/2) -> O(n)
 
 ## Priority Queue
-> Priority Queue is an abstract data structure, in which each element has an associated priority.
+> Priority Queue is an abstract data structure, in which each element has an associated priority.   
+> They are mostly implemented using min heaps
 
-* They are mostly implemented using min heaps
 * A lower number indicates a higher priority
 * Priority queues are used in **medical emergency management**, used by **operating systems to prioritize processes**
 * Implementing priority Queue using heaps, time complexity is O(log n), as compared to arrays that would be O(n)
@@ -1915,6 +1911,18 @@ bfs(vertex){
 
 ### The Approch of Dijkstras Algorithm
 1. Create a weighted graph and add vertices, edges and weights
+    ```javascript
+    {
+      "list": {
+        "A": [{"vertex": "B","weight": 4},{"vertex": "C","weight": 2}],
+        "B": [{"vertex": "A","weight": 4},{"vertex": "E","weight": 3}],
+        "C": [{"vertex": "A","weight": 2},{"vertex": "D","weight": 2},{"vertex": "F","weight": 4}],
+        "D": [{"vertex": "C","weight": 2},{"vertex": "F","weight": 1},{"vertex": "E","weight": 3}],
+        "E": [{"vertex": "B","weight": 3},{"vertex": "D","weight": 3},{"vertex": "F","weight": 1}],
+        "F": [{"vertex": "C","weight": 4},{"vertex": "D","weight": 1},{"vertex": "E","weight": 1}]
+      }
+    }
+    ```
 1. Create an array 'visited' which will save all visited nodes, initially empty   
     ` visited : [] `
 1. Create a priority queue which has all vertices and their shortest distances from 'A', distances initially '0' for 'A' and 'Infinity' for all other nodes   
@@ -2189,3 +2197,18 @@ console.log(graph.dijkstra('B','F')); // [ 'B', 'E', 'F' ]
 * Tabulated solution has a time complexity of **O(n) which is same as memoized solution**
 * **Tabulated approch is a lot better then memoized as even the memoized would exceed call stack above fib(100000)**
 * Tablulated version return Infinity for fib(100000) which is math and roundoff, doesnt break though
+
+---
+## Tips and Tricks
+  * Accept n no of arguments in javascript - use arguments keyword or spread operator
+  ```javascript
+  function multipleArguments(...arr) { return arr.sort();}
+  ```
+  * To avoid encountering duplicates again, splice them off
+  * To remove duplicates, make a set
+  * **BFS is implemented using Queue,**   
+    **DFS is implemented using Stack or Recursion (which internally uses Call Stack)**
+  * Whenever a function has to return either True/False, initially set result to True, if at any point condition fails set it to False, break, and return result.
+  * Whenever a Problem has a **sorted structure**, Try using **Multiple Pointers Pattern with while loop** before Frequency Counter Pattern
+  * Whenever we have an **array or string** and we are looking for a **continuous subset of data, use Sliding Window Pattern**
+   
