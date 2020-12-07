@@ -12,6 +12,11 @@
   * Whenever a function has to return either True/False, initially set result to True, if at any point condition fails set it to False, break, and return result.
   * Whenever a Problem has a **sorted structure**, Try using **Multiple Pointers Pattern with while loop** before Frequency Counter Pattern
   * Whenever we have an **array or string** and we are looking for a **continuous subset of data, use Sliding Window Pattern**
+  * Two methods to solve problems with **Dynamic Programming**   
+    **Memoization - Storing the results in memo and passing it to every call**      
+    **Tabulation - Storing the result of a previous result in a table (usually an array), Usually done using iteration**  
+  * For **Dynamic programming problems using memoization** - **Visualise the problem as a tree** (nodes represnent arguments, the problem should shrink to smaller sub problems eventually base cases)
+
 
 ## Big O Notation
   * Used to compare and rate different working implementations
@@ -91,6 +96,16 @@
       > Binary Logarithm of a number roughly measures the no of times you can divide the no by 2 
       before you get a value less then or equal to 1
       
+  4. ### 2<sup>n</sup> Time Complexity
+      <img src="./img/time_complexity_2_n.png" width="30%"/>    
+          
+      For a problem like following, Each node represnts one operation to be done   
+      Since the root (level 1) will have one node, and each following level will have 2*node of parent   
+      total time taken = 1 * 2 * 2 * 2 ....(n times)   
+      which is   2<sup>n</sup>    
+      **The space complexity for this problem is O(n)** as we reach base case it returns a value    
+      Whenever a new node is added to the stack, an older value return n goes out, hence space complexity stays O(n)
+
 
 ---       
 ## Analysing Performance of Arrays and Objects
@@ -2192,7 +2207,7 @@ console.log(graph.dijkstra('B','F')); // [ 'B', 'E', 'F' ]
 * For calculating fib(7), everything is calculated just once
 <br/>
 
-> Tabulation - A Bottom-up Approach
+> Tabulation - A Bottom-up Approach, Storing the result of a previous result in a table (usually an array), Usually done using iteration
 * Tabulation - Storing the result of a previous result in a table (usually an array)
 * Usually done using iteration
 * Better **Space Complexity** can be achived using Tabulation
@@ -2213,3 +2228,15 @@ console.log(graph.dijkstra('B','F')); // [ 'B', 'E', 'F' ]
 
 ---
    
+### Memoization Recipe
+
+1. Make It Work
+* Visualise as a tree (nodes represnent arguments, the problem should shrink to smaller sub problems eventually base cases)
+* Implement tree using recursion
+* Test it
+
+1. Make Efficient
+* Add a memo object (keys representing arguments and value represnting return values for those arguments)
+* Pass memo object with all recursive calls
+* Add base case to check memo object
+* Store calculate return values in the memo
