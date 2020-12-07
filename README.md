@@ -1,5 +1,18 @@
 # Data Structures and Algorithm
 
+## Key Takeaways
+  * Accept n no of arguments in javascript - use arguments keyword or spread operator
+  ```javascript
+  function multipleArguments(...arr) { return arr.sort();}
+  ```
+  * To avoid encountering duplicates again, splice them off
+  * To remove duplicates, make a set
+  * **BFS is implemented using Queue,**   
+    **DFS is implemented using Stack or Recursion (which internally uses Call Stack)**
+  * Whenever a function has to return either True/False, initially set result to True, if at any point condition fails set it to False, break, and return result.
+  * Whenever a Problem has a **sorted structure**, Try using **Multiple Pointers Pattern with while loop** before Frequency Counter Pattern
+  * Whenever we have an **array or string** and we are looking for a **continuous subset of data, use Sliding Window Pattern**
+
 ## Big O Notation
   * Used to compare and rate different working implementations
   * Allows us to talk formally about **how runtime of algo grows as input grows**
@@ -2199,16 +2212,4 @@ console.log(graph.dijkstra('B','F')); // [ 'B', 'E', 'F' ]
 * Tablulated version return Infinity for fib(100000) which is math and roundoff, doesnt break though
 
 ---
-## Tips and Tricks
-  * Accept n no of arguments in javascript - use arguments keyword or spread operator
-  ```javascript
-  function multipleArguments(...arr) { return arr.sort();}
-  ```
-  * To avoid encountering duplicates again, splice them off
-  * To remove duplicates, make a set
-  * **BFS is implemented using Queue,**   
-    **DFS is implemented using Stack or Recursion (which internally uses Call Stack)**
-  * Whenever a function has to return either True/False, initially set result to True, if at any point condition fails set it to False, break, and return result.
-  * Whenever a Problem has a **sorted structure**, Try using **Multiple Pointers Pattern with while loop** before Frequency Counter Pattern
-  * Whenever we have an **array or string** and we are looking for a **continuous subset of data, use Sliding Window Pattern**
    
