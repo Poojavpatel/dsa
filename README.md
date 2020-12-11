@@ -12,10 +12,16 @@
   * Whenever a function has to return either True/False, initially set result to True, if at any point condition fails set it to False, break, and return result.
   * Whenever a Problem has a **sorted structure**, Try using **Multiple Pointers Pattern with while loop** before Frequency Counter Pattern
   * Whenever we have an **array or string** and we are looking for a **continuous subset of data, use Sliding Window Pattern**
+  * For **Dynamic programming** - **Visualise the problem as a tree** (nodes represnent arguments, the problem should shrink to smaller sub problems eventually base cases)
   * Two methods to solve problems with **Dynamic Programming**   
     **Memoization - Storing the results in memo and passing it to every call**      
     **Tabulation - Storing the result of a previous result in a table (usually an array), Usually done using iteration**  
-  * For **Dynamic programming problems using memoization** - **Visualise the problem as a tree** (nodes represnent arguments, the problem should shrink to smaller sub problems eventually base cases)
+  * `sum = (n*(n-1))/2`  Guass formula to compute the **sum of the first n natural numbers in constant time**
+  * When numbers from 1 to n are mentioned in an array use `sum = (n*(n-1))/2`
+  * XOR operator can be used in many problems
+    * If we take XOR of zero and some bit, it will return that bit `a ^ 0 = a`
+    * If we take XOR of two same bits, it will return 0 `a ^ a = 0`
+    * XOR all bits together to find the **unique number** `a ^ b ^ c ^ a ^ c = b` 
 
 
 ## Big O Notation
