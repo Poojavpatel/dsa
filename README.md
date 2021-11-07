@@ -23,6 +23,100 @@
     * If we take XOR of two same bits, it will return 0 `a ^ a = 0`
     * XOR all bits together to find the **unique number** `a ^ b ^ c ^ a ^ c = b` 
 
+---
+
+## Dynamic Programming Takeaways 
+* Refer - https://www.youtube.com/watch?v=oBt53YbR9Kk&t=4321s
+* If the **Brute force solution ---> O(2 ^ n)**, it is probably a DP question
+* For **Dynamic programming** - **Visualise the problem as a tree** (nodes represnent arguments, the problem should shrink to smaller sub problems eventually base cases)
+* Two methods to solve problems with **Dynamic Programming**   
+  **Memoization - Storing the results in memo and passing it to every call**      
+  **Tabulation - Storing the result of a previous result in a table (usually an array), Usually done using iteration**  
+
+* ### For a problem whose solution will be Recursive, Visualize it like a tree
+  If there is a choice between two options,    
+  eg Right/Down in grid_traversal_memoization_dp, Add/Subtract in dp_target_sum.js   
+  Represent them as left and right child of tree
+
+* To represent a problem of checkSum into tree -
+checkSum(7, [5, 4, 3, 7]) -> true
+checkSum(7, [2, 4]) -> false
+
+  <img src="./img/check_sum_tree.png" width="30%"/>   
+  <img src="./img/check_sum_tree_return.png" width="30%"/>
+
+---
+
+
+### Memoization Recipe
+
+1. Make It Work
+* Visualise as a tree (nodes represnent arguments, the problem should shrink to smaller sub problems eventually base cases)
+* Implement tree using recursion
+* Test it
+
+1. Make Efficient
+* Add a memo object (keys representing arguments and value represnting return values for those arguments)
+* Pass memo object with all recursive calls
+* Add base case to check memo object
+* Store calculate return values in the memo
+
+---
+
+### Tabulation Recipe
+
+
+---
+## 
+
+* Understanding time and space complexities of FIBONACI RECURSIVE Problem    
+  ```javascript
+  const foo(n) => {
+    if(n <= 1) return;
+    foo(n-1);
+  }
+
+
+  // Time complexity - O(n)   
+  // Space complexity - O(n)
+  ```
+
+  ```javascript
+  const bar(n) => {
+    if(n <= 1) return;
+    bar(n-2);
+  }
+
+
+  // Time complexity - O(n)   
+  // Space complexity - O(n)
+  ```
+
+  ```javascript
+  const dib(n) => {
+    if(n <= 1) return;
+    dib(n-1);
+    dib(n-1);
+  }
+
+
+  // Time complexity - O(2 ^ n)   
+  // Space complexity - O(n)
+  ```
+
+  <img src="./img/time_complexity_fib.png" width="30%"/>
+
+  Space Complexity is O(n), Once a base case is reached the stack frame is popped out of the stack ,and once the left child is removed after that the right child is added
+  Hence at any point there are only n calls in call stack, which is clear in the visual   
+  <img src="./img/space_complexity_fib.png" width="30%"/>
+  
+
+---
+
+### Backtracking
+
+
+---
 
 ## Big O Notation
   * Used to compare and rate different working implementations
@@ -2234,15 +2328,3 @@ console.log(graph.dijkstra('B','F')); // [ 'B', 'E', 'F' ]
 
 ---
    
-### Memoization Recipe
-
-1. Make It Work
-* Visualise as a tree (nodes represnent arguments, the problem should shrink to smaller sub problems eventually base cases)
-* Implement tree using recursion
-* Test it
-
-1. Make Efficient
-* Add a memo object (keys representing arguments and value represnting return values for those arguments)
-* Pass memo object with all recursive calls
-* Add base case to check memo object
-* Store calculate return values in the memo
