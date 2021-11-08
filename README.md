@@ -113,8 +113,32 @@ checkSum(7, [2, 4]) -> false
 
 ---
 
-### Backtracking
+## Backtracking
 
+* Backtracking is an algorithmic technique that considers searching in every possible combination for solving a computational problem.
+* It is known for solving problems recursively one step at a time and removing those solutions that that do not satisfy the problem constraints at any point of time.
+* It is a refined brute force approach that tries out all the possible solutions and chooses the best possible ones out of them.
+
+### If the current solution is not suitable, then eliminate that and backtrack (go back) and check for other solutions.
+
+<img alt="Backtracking" src="https://ibpublicimages.s3-us-west-2.amazonaws.com/tutorial/backtracking1.png" width="40%"/>
+
+   
+
+Backtracking Pseudocode 
+```javascript
+function pathFound(Position p) {
+  if (p is finish) return true;
+  
+  foreach option O from p {
+    boolean isThereAPath = pathFound(O);
+    if (isThereAPath) return true; // We found a path using option O
+  }
+  // We have tried all options from this position and none of the options lead to finish. 
+  // Hence there is no solution possible to finish
+  return false;
+}
+```
 
 ---
 
