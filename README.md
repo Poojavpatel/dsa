@@ -22,6 +22,10 @@
     * If we take XOR of zero and some bit, it will return that bit `a ^ 0 = a`
     * If we take XOR of two same bits, it will return 0 `a ^ a = 0`
     * XOR all bits together to find the **unique number** `a ^ b ^ c ^ a ^ c = b` 
+  * Logarithm is the inverse of exponentiation       
+    log<sub>2</sub>(8) = 3      -------->      2<sup>3</sup> = 8   
+  * Binary Logarithm of a number roughly measures the no of times you can divide the no by 2 
+      before you get a value less then or equal to 1
 
 ---
 
@@ -219,7 +223,16 @@ function pathFound(Position p) {
       
       > Binary Logarithm of a number roughly measures the no of times you can divide the no by 2 
       before you get a value less then or equal to 1
+
+      log(4 billion something) ---> 32   
+      log(8 billion something) ---> 33    
+      log(16 billion something) ---> 34    
       
+      ### When input doubles, time to execute increases by just one operation
+          
+      > Time to execute an Algorithm with O(n) complexity, 4 billion input size ~ 4 Billion nanoseconds ~ 4 days   
+      > Time to execute an Algorithm with O(log n) complexity, 4 billion input size ~ 32 nanoseconds ~ almost instant
+
   4. ### 2<sup>n</sup> Time Complexity
       <img src="./img/time_complexity_2_n.png" width="30%"/>    
           
