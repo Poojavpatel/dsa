@@ -1142,7 +1142,7 @@ remove(index){
 ```
 </details>
 
-<details>
+<!-- <details> -->
 <summary>Reverse</summary>
 
 ```javascript
@@ -1162,8 +1162,29 @@ reverse(){
   return this;
 }
 ```
-</details>
+<!-- </details> -->
 
+### Reverse a single linked list 
+```javascript
+reverse() {
+  if(!this.head){
+    return this.head;
+  }
+  let previousChain = null;
+  let current = this.head;
+  let nextChain = current.next;
+  while(current){
+    nextChain = current.next;
+    current.next = previousChain;
+    previousChain = current;
+    current = nextChain;
+  }
+  return previousChain;
+}
+```
+
+
+// Todo expand and explain
 ### BigO of Singly Linked Lists
 * Insertion at start or end is O(1), for array its O(n) for start and O(1) for end
 * Removal from start is O(1) from end O(n), in array removal from start is O(n) and from end is O(1)
@@ -1471,7 +1492,7 @@ Heaps can be of two types:
  In a Min-Heap the key present at the root node must be minimum among the keys present at all of it’s children.  
  The same property must be recursively true for all sub-trees in that Binary Tree
 
-<img alt="Heaps" src="https://www.geeksforgeeks.org/wp-content/uploads/MinHeapAndMaxHeap.png" width="37%"/>
+<img alt="Heaps" src="https://www.geeksforgeeks.org/wp-content/uploads/MinHeapAndMaxHeap.png" width="50%"/>
 
 ### Max Binary Heap
 * Since Binary, each parent has at most two children
