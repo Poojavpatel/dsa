@@ -1,21 +1,5 @@
-// Implement Queue using arrays
-// class Queue {
-//   constructor() {
-//     this.list = [];
-//     this.front = null;
-//     this.rear = null;
-//   }
-//   // Insert an element to the end of a queue
-//   enqueue(val) {
-//     this.list.push(val);
-//   }
-//   // Remove an element from front of a queue
-//   dequeue() {
-//     this.list.shift();
-//   }
-// }
-
-// Implement Queue using Linked List
+// Double-ended queue
+// Implement Deque using Linked List
 class Node {
   constructor(val) {
     this.val = val;
@@ -61,7 +45,7 @@ class LinkedList {
   }
 }
 
-class Queue {
+class Deque {
   constructor() {
     this.list = new LinkedList();
   }
