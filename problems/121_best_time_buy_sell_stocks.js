@@ -11,26 +11,45 @@
 // Output: 0
 // Explanation: In this case, no transactions are done and the max profit = 0.
 
-const maxProfit = function(prices) {
-  let a = 0;
-  let b = 0;
-  let c =  prices.length - 1;
-  let d =  prices.length - 1;
+// Two Pointers
+// const maxProfit = function(prices) {
+//   let a = 0;
+//   let b = 0;
+//   let c =  prices.length - 1;
+//   let d =  prices.length - 1;
 
-  while(c - a > 1 && b < prices.length - 1  && d > 0){
-    if(prices[b] < prices[a]) a = b;
-    if(prices[d] > prices[c]) c = d;
-    b++;
-    d--;
+//   while(c - a > 1 && b < prices.length - 1  && d > 0){
+//     if(prices[b] < prices[a]) a = b;
+//     if(prices[d] > prices[c]) c = d;
+//     b++;
+//     d--;
+//   }
+//   return prices[c] > prices[a] ? prices[c] - prices[a] : 0;
+// };
+
+const maxProfit = function(prices) {
+  let buyingAt = Infinity;
+  let profit = 0;
+  for(let i =0; i< prices.length;i++){
+    // If we are getting to buy at a value less then current buy price, set this as buy price
+    if(prices[i] < buyingAt){
+      buyingAt = prices[i]
+    } else {
+      // Try selling here, if profit is more then existing, then set as new profit
+      const profitIfSoldAtThisPrice = prices[i] - buyingAt;
+      if(profitIfSoldAtThisPrice > profit) profit = profitIfSoldAtThisPrice;
+      // if(prices[i] - buyingAt > profit) profit = prices[i] - buyingAt;
+    }
   }
-  return prices[c] > prices[a] ? prices[c] - prices[a] : 0;
+  return profit;
 };
 
-console.log(maxProfit([ 7, 5, 6, 7, 8, 9, 2, 1, 100, 3, 6, 4 ])) // 99 (1 - 100) //
+
 console.log(maxProfit([7,1,5,3,6,4])) // 5 (1 - 6)
+console.log(maxProfit([ 7, 5, 6, 7, 8, 9, 2, 1, 100, 3, 6, 4 ])) // 99 (1 - 100) //
 console.log(maxProfit([7,6,4,3,1])) // 0 
 console.log(maxProfit([7,1,5,3,6,100])) // 99 (1 - 100)
 console.log(maxProfit([7,1,5,3,6,8])) // 7 (1 - 8)
 console.log(maxProfit([7,6,4,3,100])) // 97 (3 - 100) //
 console.log(maxProfit([100,6,4,3,1])) // 0 
-// console.log(maxProfit([2,1,2,1,0,0,1])) // 1 
+console.log(maxProfit([2,1,2,1,0,0,1])) // 1 
