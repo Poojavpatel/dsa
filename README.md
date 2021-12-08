@@ -146,6 +146,61 @@ function pathFound(Position p) {
 
 ---
 
+## Optimization problem
+
+Optimization problem is the problem of finding the best solution from all feasible solutions
+
+> Optimization problem is the problem that demands Minimum results or Maximum results
+
+There are 3 approaches to solve Optimization problems
+1. Greedy Method
+2. Dynamic Programming
+3. Branch and Bound
+
+---
+
+## Greedy Algorithm
+
+<!-- https://www.youtube.com/watch?v=HzeK7g8cD0Y -->
+
+**Greedy Method is used for solving optimization problems**
+
+A greedy algorithm is a simple, intuitive algorithm that is used in optimization problems. 
+The algorithm makes the **optimal choice at each step** as it attempts to find the **overall optimal** way to solve the entire problem.
+**However, in many problems, a greedy strategy does not produce an optimal solution.**
+
+<br/>
+
+In What case would greedy algorithm fail ie not produce an optimal solution?   
+Consider a tree 
+```javascript 
+                        3
+                   4        7
+                 6   20   9   11 
+```
+In this case greedy algorithm chooses - 3 -> 7 -> 11 = 21 instead of 3 -> 4 -> 20 = 37   
+as at step 1 among 4 and 7, 7 is the optimal choice and among 9 and 11, 11 is
+
+<br/>
+
+**Greedy Algorithm never reconsiders its choices**
+
+<br/>
+
+When to use greedy method ?   
+Problems on which greedy approach works has 2 properties   
+1. Should be an Optimization problem (Min or Max is demanded)
+1. Greedy choice property - global optimum can be arrived by choosing local optimum
+1. Optimal Substructure (Simillary to DP) -    
+
+<br/>
+
+This is a difference between dp and greedy algorithm -    
+DP is exhaustive and is guaranteed to find a solution,    
+greedy method fails in some cases and never reconsiders its choices
+
+---
+
 ## Big O Notation
   * Used to compare and rate different working implementations
   * Allows us to talk formally about **how runtime of algo grows as input grows**
@@ -815,6 +870,39 @@ function collectOddValues(arr){
   ```
   // Radix sort Implementation
   ```
+
+---
+
+## Count Sort 
+
+**Useful only when you know the range of data** and the range is not very high ( < 10 ^ 6)
+
+
+* Consider you want to sort an array [5,3,3,7,2,9], here all numbers are in range 0 - 10
+* Create an array 'frequency' of length = range max value, with all elements as 0 , frequency = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+* Loop over input array and increase frequency by 1 at index = value, frequency = [0, 0, 1, 2, 0, 1, 0, 1, 0, 1]
+* Create new array 'sortedArray', Loop over frequency array and push index where frequency[index] > 0, if frequency[index] > 1 push for frequency[index] times
+* sortedArray = [2, 3, 3, 5, 7, 9]
+
+```javascript
+// Count Sort implementation
+
+const countSort = (arr = [], range = 100) => {
+  const sortedArray = [];
+  let frequency = new Array(range); 
+
+  for (let i=0; i < range; i++) frequency[i] = 0;
+  arr.forEach(item => frequency[item] += 1);
+  
+  for (let i=0; i < frequency.length; i++){
+    while (frequency[i] > 0) {
+      sortedArray.push(i);
+      frequency[i]--;
+    }
+  }
+  return sortedArray;
+}
+```
 
 ---
 ## Comparision of sorting algorithms
