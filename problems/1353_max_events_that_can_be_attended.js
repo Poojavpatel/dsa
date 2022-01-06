@@ -27,3 +27,5 @@ const maxEvents = function (events) {
 // console.log(maxEvents([[1,100000]]))  // 1
 // console.log(maxEvents([[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7]]))  // 7
 console.log(maxEvents([[1,5],[1,5],[1,5],[2,3],[2,3]]))  // 5
+
+// FAILING FOR THIS CASE
