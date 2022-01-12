@@ -26,6 +26,13 @@
     log<sub>2</sub>(8) = 3      -------->      2<sup>3</sup> = 8   
   * Binary Logarithm of a number roughly measures the no of times you can divide the no by 2 
       before you get a value less then or equal to 1
+  * To **track already visited nodes**, Instead of maintaining a visited hash, directly mark entries as 1 or 'v' in the array or matrix itself    
+    Eg - 200_no_of_islands problem, we mark visited lands by setting them as 'v' so we dont count them again
+  * When we want to keep a record of which all **nodes to check recursievely**, prefer using stack instead of queue   
+    stack - push pop, queue - push shift, pop is constant time, shift is linear time
+  * While storing variables, Instead of using an array [2,5,7] and then checking arr.includes(5)   
+    use [0,0,1,0,0,1,0,1] and then check arr[5] == 1   
+    Eg - 73_set_matrix_zero , this increases space complexity but reduces time complexity as arr.includes is O(n) arr[5] is O(1)
 
 ---
 
