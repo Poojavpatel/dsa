@@ -3,7 +3,7 @@
 
 // Solution 
 // for(elements in array){
-//   if element == 1, mark it as visited, mark all 1 around it as visited (use queue for keeping track of who all to visit)
+//   if element == 1, mark it as visited, mark all 1 around it as visited (use stack/queue for keeping track of who all to visit)
 //   since we saw an island, island ++
 // }
 

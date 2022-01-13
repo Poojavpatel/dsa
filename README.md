@@ -33,6 +33,8 @@
   * While storing variables, Instead of using an array [2,5,7] and then checking arr.includes(5)   
     use [0,0,1,0,0,1,0,1] and then check arr[5] == 1   
     Eg - 73_set_matrix_zero , this increases space complexity but reduces time complexity as arr.includes is O(n) arr[5] is O(1)
+  * When you want fast access (like hash) and want sequential order (like array)   
+    use count array, eg [2,5,7] to [0, 0, 1, 0, 0, 1, 0, 1], eg - 1046_last_stone_weight 
 
 ---
 

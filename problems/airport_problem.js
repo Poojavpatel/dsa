@@ -38,3 +38,5 @@ const canTravel = (source, destination) => {
 };
 
 console.log(canTravel(source, destination));
+
+// Try using backtracking

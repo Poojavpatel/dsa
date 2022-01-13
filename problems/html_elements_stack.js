@@ -8,6 +8,7 @@ function HTMLElements(str) {
   const stack = [];
   let elements = str.split("<").join('').split(">");
 
+  // removing text eg "text test test/b" -> "/b"
   for(let i=0; i< elements.length; i++){
     if(elements[i].indexOf("/") > -1){
       elements[i] = elements[i].substring(elements[i].indexOf("/"));

@@ -128,3 +128,12 @@ function higestContinuousSum(numbers) {
 
 // a = 29
 // m = 1
+
+// job sequencing 
+// robbery
+// spiral matrix
+
+// maxDifference with larger no on right is nothing but 121_best_time_to_buy_sell_stock
+
+// 1353_max_events_that_can_be_attended.js can do now
+// solve heap_task_scheduler.js
