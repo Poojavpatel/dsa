@@ -9,35 +9,35 @@
 // console.log(b);
 // console.log(a);
 
-const users = [
-  {
-    firstName : 'Pooja'
-  },
-  {
-    firstName : 'Mayur'
-  },
-  {
-    firstName : 'Swati'
-  },
-  {
-    firstName : 'swati'
-  },
-  {
-    firstName : 'Aaaaa'
-  },
-  {
-    firstName : 'aaaa'
-  },
-  {
-    firstName : 'zzz'
-  }
-]
+// const users = [
+//   {
+//     firstName : 'Pooja'
+//   },
+//   {
+//     firstName : 'Mayur'
+//   },
+//   {
+//     firstName : 'Swati'
+//   },
+//   {
+//     firstName : 'swati'
+//   },
+//   {
+//     firstName : 'Aaaaa'
+//   },
+//   {
+//     firstName : 'aaaa'
+//   },
+//   {
+//     firstName : 'zzz'
+//   }
+// ]
 
-const ans = users.sort((a, b) => a.firstName !== b.firstName ? a.firstName < b.firstName ? -1 : 1 : 0);
+// const ans = users.sort((a, b) => a.firstName !== b.firstName ? a.firstName < b.firstName ? -1 : 1 : 0);
 // console.log('----', ans);
 
 // js sort alphabetically ignore case
-const ans2 = users.sort((a, b) => a.firstName.localeCompare(b.firstName))
+// const ans2 = users.sort((a, b) => a.firstName.localeCompare(b.firstName))
 // console.log('---2-', ans2);
 
 // regex to find all alphabets or spaces between > and <
@@ -105,3 +105,26 @@ const ans2 = users.sort((a, b) => a.firstName.localeCompare(b.firstName))
 
 // Find a pair of natural numbers who have the least energy among all pairs having sum of n
 
+
+function higestContinuousSum(numbers) {
+  let max = Number.NEGATIVE_INFINITY;
+  let currentMax = 0;
+  for(let i=0;i<numbers.length;i++){
+    currentMax+= numbers[i];
+    max = currentMax > max ? currentMax : max;
+    if(currentMax < 0) currentMax = 0;
+  }
+  return max;
+}
+
+// console.log(higestContinuousSum([-1,1,4,-5,7,8]))
+// console.log(higestContinuousSum([-1,1,4,-5,7,8, 1, -1, 99, 100, 100, -500, 1,3,4]))
+
+
+
+
+// [[3,29], [50,93], [88,92], [54,67], [50,87]]
+// [[3, 29], [54, 67], [50, 87], [88, 92], [50, 93]]
+
+// a = 29
+// m = 1
