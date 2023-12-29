@@ -19,6 +19,16 @@ Explanation: Bob will remove the ballons at indices 0 and 4. Each ballon takes 1
 There are no longer two consecutive balloons of the same color. Total time = 1 + 1 = 2.
 */
 
+/* 
+Approach : 
+Use sliding window to traverse sequences
+Since we want to break all balloons in a sequence except one, we need to break all balloons except the one with most time needed in a sequence
+Find total sum of the sequence
+Find the largest number in the sequence
+Desired time of breaking a sequence = sum of a sequence - largest number in the sequence
+Total time needed = sum of breaking times of all such sequences
+*/
+
 /*
 function minCost(colors: string, neededTime: number[]): number {
   let i: number = 0;
