@@ -87,8 +87,9 @@ function multipleArguments(...arr) {
   Eg - 73_set_matrix_zero , this increases space complexity but reduces time complexity as arr.includes is O(n) arr[5] is O(1)
 - When you want fast access (like hash) and want sequential order (like array)  
   use count array, eg [2,5,7] to [0, 0, 1, 0, 0, 1, 0, 1], eg - 1046_last_stone_weight
-
----
+- If we need the max/min values after every iteration and for that if we need to sort an array in a loop, it can be simplified using a priority queue or heap  
+  Eg - 1046. Last Stone Weight
+- ***
 
 ### Dynamic Programming Takeaways
 
@@ -562,11 +563,13 @@ Whenever a new node is added to the stack, an older value return n goes out, hen
 
 1. ### Sliding Window Pattern
 
-   > This pattern is useful when we have an array or string and we are looking for a subset of data that is continuous
+   The Sliding Window Pattern is commonly used in problems that require finding subarrays or sublists that satisfy certain conditions.
+
+   > The basic idea behind the Sliding Window Pattern is to maintain a "window" or a subrange of elements within the given array or sequence and slide it through the array in a systematic way. As you move the window, you update its state to reflect the current portion of the array you are considering.
 
    <u>Example</u>  
    write a function maxSubarraySum which accepts an array of integers and a number called n.  
-   The function should calculate the maximum sum of n consequitive elements in an array.  
+   The function should calculate the maximum sum of n consecutive elements in an array.  
    maxSubarraySum([1,2,5,2,8,1,5], 2) // 10  
    maxSubarraySum([1,2,5,2,8,1,5], 4) // 17  
    maxSubarraySum([4,2,1,6], 1) // 6  
@@ -608,6 +611,15 @@ Whenever a new node is added to the stack, an older value return n goes out, hen
      }
      return max;
    }
+
+   /* In this case - The size of window is n elements, when we move the window forward, we add the current element and subtract the earliest element 
+   
+   Eg - maxSubarraySum([1,2,5,2,8,1,5], 4)
+   tempSum = 1+2+5+2 = 10
+   
+   In the loop, 10+8-1 = 17, 17+1-2=16, 16+5-5=16
+   [0,0,0,10,17,16,16] // max is 17 
+   */
    ```
 
 1. ### Divide and Conquer Pattern
@@ -721,8 +733,11 @@ Recursion is used by
 Example 1 - Factorial
 
 ```javascript
-// Iterative way
+  5! = 5 * 4 * 3 * 2 * 1
+  n! = n * n-1 * n-2 * .... * 2 * 1
+  n! = n * n-1!
 
+// Iterative way
 function factorial(num) {
   let total = 1;
   for (var i = num; i > 1; i--) {
@@ -730,19 +745,16 @@ function factorial(num) {
   }
   return total;
 }
-```
 
-```javascript
 // Recursion
-
 function factorial(num) {
   if (num === 1) return 1;
   return num * factorial(num - 1);
 }
 ```
 
-Example 2 - Fibonaci  
- using recursion write a function that returns nth no in fibonaci series. Fibonaci seq - 1, 1, 2, 3, 5, 8, 13  
+Example 2 - Fibonacci  
+ using recursion write a function that returns nth no in fibonacci series. Fibonacci seq - 1, 1, 2, 3, 5, 8, 13  
  fib(4) // 3  
  fib(5) // 5  
  fib(10) // 55
@@ -753,6 +765,8 @@ function fib(n) {
   return fib(n - 1) + fib(n - 2);
 }
 ```
+
+Note - Fibonacci function can be further optimized using dynamic programming
 
 ### Helper Method Recursion
 
@@ -840,8 +854,35 @@ Sorting is the process of rearranging items in collection, so that items are in 
 
 > Instead of finding largest or smallest, it takes one element at a time and places it where it should go in the sorted portion
 
+- Works for **continuously changing data**, if new values are added to the end of the array. This is because insertion sort is adaptive, meaning it becomes more efficient when dealing with partially sorted data.
+- It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, or merge sort. However, insertion sort is often used for its simplicity and efficiency on small data sets or partially sorted data.
 - BigO of insertion sort O(n \* n)
-- Works for **continuously changing data**, if new values are added to the end of the array
+
+  How insertion sort works:
+
+  1. Start from the second element (index 1) of the array.
+  2. Compare the current element with its predecessor.
+  3. If the current element is smaller than its predecessor, compare it with the elements before. Move the greater elements one position up to make space for the current element. Repeat this process until you find an element smaller than the current one or reach the beginning of the array.
+  4. Place the current element in the correct position in the sorted part of the array.
+  5. Repeat steps 2-4 for each element in the array until the entire array is sorted.
+
+  ```js
+  function insertionSort(arr) {
+    const n = arr.length;
+
+    for (let i = 1; i < n; i++) {
+      let currentElement = arr[i];
+      let j = i - 1;
+
+      while (j >= 0 && currentElement < arr[j]) {
+        arr[j + 1] = arr[j];
+        j--;
+      }
+
+      arr[j + 1] = currentElement;
+    }
+  }
+  ```
 
 ---
 
@@ -859,6 +900,8 @@ Sorting is the process of rearranging items in collection, so that items are in 
   8 elements array take 3 steps, 32 elements array takes 5 steps  
   Each time we decompose it, during merging we have O(n) comparisions.  
   Hence O(log n) decompositions \* O(n) comparision per decomposition
+
+[Implementation](mergeSort.js)
 
 ```javascript
 // Merge sort implementation
@@ -917,33 +960,35 @@ function merge(a = [], b = []) {
 - In worst case is an already sorted array, hence instead of picking first item as a pivot, pick middle or a random element
 - Space complexity is O(n log n)
 
+[Implementation](quickSort.js)
+
 ```javascript
-// Pivot helper function
+/* Pivot helper function
 This function should designate an element as pivot and rearrange elements such that values less then pivot are to the left and greater to the right
 The order of values on either side doesnt matter
 Should do this in place, DO NOT create new array
 when done return the index of the pivot
+*/
 
-function pivot(arr = [], start=0, end= arr.length-1){
+function pivot(arr = [], start = 0, end = arr.length - 1) {
   let pivot = arr[start];
   let smallerCount = 0;
   let swapTo = start + 1;
-  for(let i = start; i<=end; i++){
-    if(arr[i] < pivot){
+  for (let i = start; i <= end; i++) {
+    if (arr[i] < pivot) {
       smallerCount++;
       [arr[swapTo], arr[i]] = [arr[i], arr[swapTo]];
       swapTo++;
     }
   }
   [arr[smallerCount], arr[start]] = [arr[start], arr[smallerCount]];
-  console.log('-arr-', arr);
+  console.log("-arr-", arr);
   return smallerCount;
 }
 ```
 
 ```javascript
 // Quick sort implementation
-
 function quickSort(arr, left = 0, right = arr.length - 1) {
   if (left < right) {
     let pivotIndex = pivot(arr, left, right);
@@ -954,9 +999,92 @@ function quickSort(arr, left = 0, right = arr.length - 1) {
 }
 ```
 
+```js
+/* 
+Shorter explanation : 
+[4, 8, 2, 1, 5, 7, 6, 3]
+4 is selected as first pivot, array gets divided as left partition [3, 2, 1] and right partition [5, 7, 6, 8]
+we work on left partition [3, 2, 1] first, 3 is selected as pivot, array gets divided as left partition [1, 2]
+we work on left partition [1, 2], 1 is selected as pivot, left side sorting done [1, 2, 3]
+we work on right partition [5, 7, 6, 8] now, 5 is selected as pivot, array gets divided as right partition [7, 6, 8]
+we work on right partition [7, 6, 8] now, 7 is selected as pivot, array gets divided as left partition [6] and right partition [8]
+we work on left partition [6] first
+we work on right partition [8] now
+list is sorted [1, 2, 3, 4, 5, 6, 7, 8]
+
+This is a DFS approach, we use stack for DFS, in this case we use recursion, which uses the call stack
+*/
+```
+
 ---
 
 ### Heap Sort
+
+> Heap sort is a comparison-based sorting algorithm that uses a binary heap data structure to build a max-heap or min-heap. In the case of heap sort, it typically builds a max-heap to sort the elements in ascending order.
+
+- The time complexity of heap sort is O(n log n) for the worst, average, and best cases.
+- The Space Complexity is O(1) - In-place sorting algorithm, uses only a constant amount of additional memory.
+- The best-case scenario for heap sort occurs when the input array is already sorted.
+- The worst-case scenario for heap sort occurs when the input array is in reverse order, and the heapification process is required for every element.
+
+Steps:
+
+1. Build a Max-Heap : Convert the given array into a max-heap, This involves rearranging the array elements so that they satisfy the max-heap property: the value of each node is greater than or equal to the values of its children.
+
+2. Heapify : Start from the last non-leaf node (i.e., the last node with children) and heapify each subtree in reverse order.  
+   The heapify operation ensures that the largest element is at the root of the max-heap.  
+   For each node, compare it with its children. If any child is greater, swap the node with the larger child. Repeat this process recursively until the entire heap is valid.
+
+3. Extract Max and Rebuild Heap : After building the max-heap, the largest element (at the root) is swapped with the last element of the array.  
+   The size of the heap is reduced by 1 (excluding the last element that is now part of the sorted array).  
+   The max-heap property is restored by heapifying the root.
+
+4. Repeat Steps 3 Until Heap is Empty : At each step, the maximum element is extracted and placed at the end of the array.
+
+   ```js
+   function heapSort(arr) {
+     // Build max heap
+     for (let i = Math.floor(arr.length / 2) - 1; i >= 0; i--) {
+       heapify(arr, arr.length, i);
+     }
+
+     // Extract elements from the heap
+     for (let i = arr.length - 1; i > 0; i--) {
+       // Swap the root (maximum element) with the last element
+       [arr[0], arr[i]] = [arr[i], arr[0]];
+
+       // Heapify the reduced heap
+       heapify(arr, i, 0);
+     }
+   }
+
+   function heapify(arr, n, i) {
+     let largest = i;
+     const left = 2 * i + 1;
+     const right = 2 * i + 2;
+
+     // Compare with left child
+     if (left < n && arr[left] > arr[largest]) {
+       largest = left;
+     }
+
+     // Compare with right child
+     if (right < n && arr[right] > arr[largest]) {
+       largest = right;
+     }
+
+     // Swap and continue heapifying if needed
+     if (largest !== i) {
+       [arr[i], arr[largest]] = [arr[largest], arr[i]];
+       heapify(arr, n, largest);
+     }
+   }
+
+   // Example usage:
+   let myArray = [12, 11, 13, 5, 6, 7];
+   heapSort(myArray);
+   console.log("Sorted array:", myArray);
+   ```
 
 ---
 
@@ -984,9 +1112,9 @@ function quickSort(arr, left = 0, right = arr.length - 1) {
 - ex- 45677 will go in 7, 40 will go in 4 , 567 will go in 6
 - repeat till the the first digit of the longest no is compared
 
-```
-// Radix sort Implementation
-```
+#### Radix sort Implementation
+
+[radixSort](radixSort.js)
 
 ---
 
@@ -1422,6 +1550,97 @@ reverse() {
 
 ### Doubly Linked Lists
 
+```javascript
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.prev = null;
+    this.next = null;
+  }
+}
+
+class DoublyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
+
+  // Add a node to the end of the list
+  append(data) {
+    const newNode = new Node(data);
+
+    if (!this.head) {
+      // If the list is empty, set the new node as the head and tail
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      // Otherwise, add the new node to the end and update pointers
+      newNode.prev = this.tail;
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+  }
+
+  // Add a node to the beginning of the list
+  prepend(data) {
+    const newNode = new Node(data);
+
+    if (!this.head) {
+      // If the list is empty, set the new node as the head and tail
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      // Otherwise, add the new node to the beginning and update pointers
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+    }
+  }
+
+  // Display the elements of the list
+  display() {
+    let current = this.head;
+    while (current) {
+      console.log(current.data);
+      current = current.next;
+    }
+  }
+
+  // Reverse the doubly linked list
+  reverse() {
+    let current = this.head;
+    let temp = null;
+
+    // Swap the prev and next pointers for each node
+    while (current) {
+      temp = current.prev;
+      current.prev = current.next;
+      current.next = temp;
+
+      current = current.prev; // Move to the next node
+    }
+
+    // Swap the head and tail pointers
+    temp = this.head;
+    this.head = this.tail;
+    this.tail = temp;
+  }
+}
+
+// Example usage:
+const doublyList = new DoublyLinkedList();
+doublyList.append(1);
+doublyList.append(2);
+doublyList.append(3);
+doublyList.prepend(0);
+console.log("Original Doubly Linked List:");
+doublyList.display();
+
+console.log("\nReversed Doubly Linked List:");
+doublyList.reverse();
+doublyList.display();
+```
+
 ---
 
 ### Stack and Queues
@@ -1446,6 +1665,12 @@ reverse() {
 - Searching in stack and queue is O(n)
 - Access in stack and queue is O(n)
 
+#### Implementation of Stack and queues
+
+- In JavaScript, you can implement stacks and queues using arrays or linked lists
+- [stack implementation using array](stack.js)
+- [queue implementation using linked list](queue.js)
+
 ---
 
 ### Binary Search Tree
@@ -1454,9 +1679,9 @@ reverse() {
 
 > **Binary Trees** are special types of trees, in which each node can have **atmost 2 childrens**
 
-> **Binary Search Trees** are special type of Binary trees,  
->  where Every node to the **left** of parent is **always less then** the parent  
->  and every node to the **right** of parent is **always greater then** the parent
+> **Binary Search Trees** are special type of Binary trees,
+> where Every node to the **left** of parent is **always less then** the parent
+> and every node to the **right** of parent is **always greater then** the parent
 
 #### Trees
 
@@ -1516,11 +1741,11 @@ class BinarySearchTree {
 
 /*
 BinarySearchTree {
-  root: Node {
-    value: 10,
-    left: Node { value: 7, left: [Node], right: null },
-    right: Node { value: 15, left: null, right: [Node] }
-  }
+root: Node {
+  value: 10,
+  left: Node { value: 7, left: [Node], right: null },
+  right: Node { value: 15, left: null, right: [Node] }
+}
 }
 */
 ```
