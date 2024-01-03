@@ -79,7 +79,7 @@ function multipleArguments(...arr) {
 - Binary Logarithm of a number roughly measures the no of times you can divide the no by 2
   before you get a value less then or equal to 1
 - To **track already visited nodes**, Instead of maintaining a visited hash, directly mark entries as 1 or 'v' in the array or matrix itself  
-  Eg - 200_no_of_islands problem, we mark visited lands by setting them as 'v' so we dont count them again
+  Eg - [200_no_of_islands problem](problems/200_no_of_islands.js), we mark visited lands by setting them as 'v' so we dont count them again
 - When we want to keep a record of which all **nodes to check recursievely**, prefer using stack instead of queue  
   stack - push pop, queue - push shift, pop is constant time, shift is linear time
 - While storing variables, Instead of using an array [2,5,7] and then checking arr.includes(5)  
@@ -1944,7 +1944,7 @@ Comparision of BFS, PreOrder DFS, InOrder DFS, PostOrder DFS
 - For a tree that look likes linked list, BFS queue will always have one thing at a time in queue, using DFS in such cases will take up more space in call stack
 - For a Binary search tree, **InOrder traversal we get all nodes in underlying order**, like arrows bringing them all down
 - In such cases **InOrder returns like sorted array**
-- **PreOrder can be used to export a tree and can be easily reconstructed**
+- **PreOrder can be used to export a binary tree and can be easily reconstructed**
 
 ---
 
