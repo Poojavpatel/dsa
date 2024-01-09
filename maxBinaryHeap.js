@@ -1,48 +1,54 @@
-class MaxBinaryHeap{
-  constructor(){
+class MaxBinaryHeap {
+  constructor() {
     this.values = [];
   }
 
-  insert(value){
+  insert(value) {
     this.values.push(value);
     this.bubbleUp();
   }
-  bubbleUp(){
-    let index = this.values.length -1;
+  bubbleUp() {
+    let index = this.values.length - 1;
     let value = this.values[index];
-    while(index > 0){
-      let parentIndex = Math.floor((index-1)/2);
+    while (index > 0) {
+      let parentIndex = Math.floor((index - 1) / 2);
       let parent = this.values[parentIndex];
-      if(value <= parent) break;
+      if (value <= parent) break;
       this.values[parentIndex] = value;
       this.values[index] = parent;
       index = parentIndex;
     }
   }
-  extractMax(){
+  extractMax() {
     const max = this.values[0];
     const mostRecent = this.values.pop();
-    if(this.values.length) {
+    if (this.values.length) {
       this.values[0] = mostRecent;
       this.bubbleDown();
     }
     return max;
   }
-  bubbleDown(){
+  bubbleDown() {
     let n = 0;
     const element = this.values[0];
-    while(true){
-      let leftIndex = (2*n)+1;
-      let rightIndex = (2*n)+2;
+    while (true) {
+      let leftIndex = 2 * n + 1;
+      let rightIndex = 2 * n + 2;
       let swap = false;
-      let maxIndex = this.values[leftIndex] > this.values[rightIndex] ? leftIndex : rightIndex;
-      if(this.values[n] < this.values[maxIndex]){
+      /* incase this.values[rightIndex] is undefined, expression evaluates to false and rightIndex is chosen, which is wrong */
+      // let maxIndex = this.values[leftIndex] > this.values[rightIndex] ? leftIndex : rightIndex;
+      let maxIndex = this.values[rightIndex]
+        ? this.values[leftIndex] > this.values[rightIndex]
+          ? leftIndex
+          : rightIndex
+        : leftIndex;
+      if (this.values[n] < this.values[maxIndex]) {
         swap = true;
         this.values[n] = this.values[maxIndex];
         this.values[maxIndex] = element;
         n = maxIndex;
       }
-      if(!swap) break;
+      if (!swap) break;
     }
   }
 }

@@ -29,59 +29,103 @@ Output: 1
 In a max-heap, 
 left child node of n is at 2n+1
 right child node of n is at 2n+2
-left child root is at (n-1)/2
-right child root is at n/2 - 1
+parent is at (n-1)/2
 
 root node should be greater than its child nodes
 */
 
-class PriorityQueue {
-  private values: number[];
+class MaxHeap {
+  private _values: number[];
 
   constructor() {
-    this.values = [];
+    this._values = [];
+  }
+
+  get length() {
+    return this._values.length;
+  }
+
+  get values() {
+    return this._values;
+  }
+
+  insert(value: number) {
+    /* add element to right most node, ie end of the array */
+    this._values.push(value);
+
+    if (this._values.length > 1) {
+      this.bubbleUp();
+    }
+  }
+
+  bubbleUp() {
+    /* start comparing from leaf nodes to the root node (end to array to start of array) */
+    let index = this.values.length - 1;
+    let value = this.values[index];
+    while (index > 0) {
+      let parentIndex = Math.floor((index - 1) / 2);
+      let parent = this.values[parentIndex];
+      if (value <= parent) break;
+      this.values[parentIndex] = value;
+      this.values[index] = parent;
+      index = parentIndex;
+    }
+  }
+
+  extractMax(): number {
+    const max = this._values[0];
+    const mostRecent = this._values.pop()!;
+    if (this.values.length) {
+      this._values[0] = mostRecent;
+      this.bubbleDown();
+    }
+    return max;
   }
 
   bubbleDown() {
-    for (let i = 0; i < this.values.length; i++) {
-      const root = this.values[i];
-      if (this.values[2 * i + 1] > this.values[i]) {
-        this.values[i] = this.values[2 * i + 1];
-        this.values[2 * i + 1] = root;
+    /* start comparing from root node to leaf nodes (start of array to end of array) */
+    let n = 0;
+    const element = this.values[0];
+    while (true) {
+      let leftIndex = 2 * n + 1;
+      let rightIndex = 2 * n + 2;
+      let swap = false;
+      let maxIndex = this.values[rightIndex]
+        ? this.values[leftIndex] > this.values[rightIndex]
+          ? leftIndex
+          : rightIndex
+        : leftIndex;
+
+      if (this.values[n] < this.values[maxIndex]) {
+        swap = true;
+        this.values[n] = this.values[maxIndex];
+        this.values[maxIndex] = element;
+        n = maxIndex;
       }
-      if (this.values[2 * i + 2] > this.values[i]) {
-        this.values[i] = this.values[2 * i + 2];
-        this.values[2 * i + 2] = root;
-      }
+
+      if (!swap) break;
     }
-  }
-
-  insertElement(value: number) {
-    /* add element to right most node, ie end of the array */
-    this.values.push(value);
-    if (this.values.length > 1) {
-      this.bubbleDown();
-    }
-  }
-
-  removeTop() {
-    /* swap the root element with last entered element, remove the last element ie the root, bubble down the rest of tree */
-    const root = this.values[0];
-    this.values[0] = this.values[this.values.length - 1];
-    this.values[this.values.length - 1] = root;
-
-    this.values.pop();
-    this.bubbleDown();
   }
 }
 
 function lastStoneWeight(stones: number[]): number {
-  const myQueue = new PriorityQueue();
+  const myHeap = new MaxHeap();
   for (let i = 0; i < stones.length; i++) {
-    myQueue.insertElement(stones[i]);
+    myHeap.insert(stones[i]);
   }
 
-  return stones[0];
+  while (myHeap.length > 1) {
+    const stone1 = myHeap.extractMax();
+
+    const stone2 = myHeap.extractMax();
+
+    const difference = Math.abs(stone2 - stone1);
+
+    myHeap.insert(difference);
+  }
+
+  return myHeap.length ? myHeap.values[0] : 0;
 }
 
 console.log(lastStoneWeight([2, 7, 4, 1, 8, 1]));
+console.log(lastStoneWeight([9, 3, 2, 10]));

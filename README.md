@@ -2054,6 +2054,21 @@ console.log(heap.extractMax()); // 55
 console.log(heap.values); // [ 41, 39, 33, 18, 27, 12 ]
 ```
 
+#### Bubble up
+
+- To add a value to a heap - Add to the end of the tree (last element in array), bubble up
+- Bubble up means to start comparing from leaf nodes to the root node (end to array to start of array), so the loop condition will be till index > 0
+- Since the rest of the max heap is already following conditions, and only the inserted element might be at wrong position, we do not need to check condition for all index from n to 1
+- We just compare last element to parent, and swap if needed, then the parent element to its parent and so on. If we did not need to swap at any stage, it means that the element is at its correct position, and we can break from the loop
+
+#### Bubble down
+
+- To remove max value from a heap - Swap the root and the last leaf node, remove the last lead node ie the root
+- Now since lower value is moved to the root, start swapping from root to the leaf nodes, This is called bubble down
+- start comparing from root node to leaf nodes (start of array to end of array), so the loop condition will be index < length
+- Since the rest of the max heap is already following conditions, and only the root element might be at wrong position, we do not need to check condition for all index from 0 to n
+- We just compare root element to its children, and swap if needed, then the child element to its child and so on. If we did not need to swap at any stage, it means that the element is at its correct position, and we can break from the loop
+
 #### BigO of Binary Heaps
 
 - Time complexity for Insertion - O(log n)
