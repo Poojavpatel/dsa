@@ -8,7 +8,12 @@ Input: head =[1,2,3,4,5,6,7,8], left = 3, right = 6
 Output: [1,2,6,5,4,3,7,8]
 */
 
-class ListNode {
+/* 
+If i copy paste ListNode in another class i get "Duplicate error"
+If i don't i get "Cannot find name 'ListNode'" error 
+To fix it, ie have the ListNode class defined in one file and use it in another without getting any errors, export from here and import in another class
+*/
+export class ListNode {
   val: number;
   next: ListNode | null;
   constructor(val?: number, next?: ListNode | null) {

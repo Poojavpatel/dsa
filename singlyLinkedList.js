@@ -1,4 +1,4 @@
-class Node{
+class Node {
   constructor(val) {
     this.val = val;
     this.next = null;
@@ -10,7 +10,7 @@ class Node{
 // a.next.next = new Node(15);
 // console.log(a);
 
-class SinglyLinkedList{
+class SinglyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
@@ -19,7 +19,7 @@ class SinglyLinkedList{
   push(val) {
     // if no node add node and set is as head, tail and length ++
     // if nodes present, add new node, set next of previous node as this node, set this node as tail, length ++
-    if(this.length) {
+    if (this.length) {
       const node = new Node(val);
       this.tail.next = node;
       this.tail = node;
@@ -33,24 +33,24 @@ class SinglyLinkedList{
   }
   traverse() {
     let node = this.head;
-    while(node){
+    while (node) {
       console.log(node.val);
       node = node.next;
     }
   }
   pop() {
     // find out the secondLastNode, set its next to null, set it as tail return last node, length--
-    if(!this.head) return undefined;
+    if (!this.head) return undefined;
     let node = this.head;
     let secondLastNode = null;
-    while(node.next){
+    while (node.next) {
       secondLastNode = node;
       node = node.next;
     }
     secondLastNode.next = null;
     this.tail = secondLastNode;
     this.length -= 1;
-    if(this.length === 0) {
+    if (this.length === 0) {
       this.head = null;
       this.tail = null;
     }
@@ -58,11 +58,11 @@ class SinglyLinkedList{
   }
   shift() {
     // set head as head.next, length--
-    if(!this.head) return undefined;
+    if (!this.head) return undefined;
     const currentHead = this.head;
     this.head = this.head.next;
     this.length -= 1;
-    if(this.length === 0) {
+    if (this.length === 0) {
       this.tail = null;
     }
     return currentHead;
@@ -73,29 +73,29 @@ class SinglyLinkedList{
     newNode.next = this.head;
     this.head = newNode;
     this.length += 1;
-    if(this.length === 1) {
+    if (this.length === 1) {
       this.tail = newNode;
     }
     return newNode;
   }
   search(val) {
-    if(val < 0) return null;
+    if (val < 0) return null;
     let counter = 0;
     let node = this.head;
-    while(node && node.val !== val){
-      counter ++;
+    while (node && node.val !== val) {
+      counter++;
       node = node.next;
     }
-    if(node === null) {
+    if (node === null) {
       return null;
     }
     return counter;
   }
   get(index) {
-    if(index < 0) return null;
+    if (index < 0) return null;
     let counter = 0;
     let node = this.head;
-    while(node && counter !== index){
+    while (node && counter !== index) {
       node = node.next;
       counter++;
     }
@@ -103,43 +103,107 @@ class SinglyLinkedList{
   }
   set(index, value) {
     let node = this.get(index);
-    if(!node) return null;
+    if (!node) return null;
     node.val = value;
     return node;
   }
   insert(index, value) {
-    if(index < 0) return null;
-    if(index === 0) return this.unshift(value);
-    const node = this.get(index-1);
+    if (index < 0) return null;
+    if (index === 0) return this.unshift(value);
+    const node = this.get(index - 1);
     const newNode = new Node(value);
     newNode.next = node.next;
     node.next = newNode;
     this.length++;
     return this;
   }
-  remove(index){
-    if(index < 0) return null;
-    if(index === 0) return this.shift();
+  remove(index) {
+    if (index < 0) return null;
+    if (index === 0) return this.shift();
     const node = this.get(index);
     const prevNode = this.get(index - 1);
     prevNode.next = node.next;
     this.length--;
     return node;
   }
+
   // reverse linked list in place
-  reverse(){
+  /* In-Place Reversal: Time Complexity: O(n) Space Complexity: O(1) */
+  reverse() {
     let node = this.head;
     this.head = this.tail;
     this.tail = node;
     let next = null;
     let prev = null;
-    for(var i =0; i<this.length ; i++){
+    for (var i = 0; i < this.length; i++) {
       next = node.next;
       node.next = prev;
       prev = node;
       node = next;
     }
     return this;
+  }
+
+  /* In-Place Reversal: Time Complexity: O(n) Space Complexity: O(1) */
+  reverse2() {
+    if (!this.head) {
+      return this.head;
+    }
+    let previousChain = null;
+    let current = this.head;
+    let nextChain = current.next;
+    while (current) {
+      nextChain = current.next;
+      current.next = previousChain;
+      previousChain = current;
+      current = nextChain;
+    }
+    return previousChain;
+  }
+
+  /* Using a Stack: Time Complexity: O(n) Space Complexity: O(n) */
+  reverseUsingStack() {
+    if (!this.head?.next) {
+      return head;
+    }
+
+    const stack = [];
+    // Traverse the linked list and push each node onto the stack
+    let current = head;
+    while (current) {
+      stack.push(current);
+      current = current.next;
+    }
+
+    // Pop elements from the stack and update next pointers
+    const reversedHead = stack.pop();
+    current = reversedHead;
+    while (stack.length > 0) {
+      const nextNode = stack.pop();
+      current.next = nextNode;
+      current = nextNode;
+    }
+    current.next = null;
+    return reversedHead;
+  }
+
+  reverseRecursivelyUtil(current, previous) {
+    if (!current) {
+      // Base case: reached the end of the list
+      this.head = previous;
+      return;
+    }
+
+    const nextNode = current.next; // Save the reference to the next node
+    current.next = previous; // Reverse the link
+
+    // Recursively reverse the rest of the list
+    this.reverseRecursivelyUtil(nextNode, current);
+  }
+
+  /* Using Recursion: Time Complexity: O(n) Space Complexity: O(n) */
+  reverseRecursively() {
+    this.reverseRecursivelyUtil(this.head, null);
   }
 }
 
