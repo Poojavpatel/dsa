@@ -7,9 +7,6 @@
   - [Memoization Recipe](#memoization-recipe)
   - [Tabulation Recipe](#tabulation-recipe)
   - [Understanding time and space complexities of FIBONACI RECURSIVE Problem](#understanding-time-and-space-complexities-of-fibonaci-recursive-problem)
-  - [Backtracking](#backtracking)
-  - [Optimization problem](#optimization-problem)
-  - [Greedy Algorithm](#greedy-algorithm)
   - [Tips and Tricks](#tips-and-tricks)
 - [Big O Notation](#big-o-notation)
 - [Problem Solving Patterns](#problem-solving-patterns)
@@ -45,7 +42,10 @@
   - [Graphs](#graphs)
     - [Graph Traversal](#graph-traversal)
     - [Dijkstras Algorithm (Shortest Path algorithm)](#dijkstras-algorithm-shortest-path-algorithm)
+- [Optimization problem](#optimization-problem)
 - [Dynamic Programming](#dynamic-programming)
+- [Backtracking](#backtracking)
+- [Greedy Algorithm](#greedy-algorithm)
 
 ## Key Takeaways
 
@@ -179,93 +179,6 @@ checkSum(7, [2, 4]) -> false
   Space Complexity is O(n), Once a base case is reached the stack frame is popped out of the stack ,and once the left child is removed after that the right child is added
   Hence at any point there are only n calls in call stack, which is clear in the visual  
   <img src="./img/space_complexity_fib.png" width="30%"/>
-
----
-
-### Backtracking
-
-- Backtracking is an algorithmic technique that considers searching in every possible combination for solving a computational problem.
-- It is known for solving problems recursively one step at a time and removing those solutions that that do not satisfy the problem constraints at any point of time.
-- It is a refined brute force approach that tries out all the possible solutions and chooses the best possible ones out of them.
-
-### If the current solution is not suitable, then eliminate that and backtrack (go back) and check for other solutions.
-
-<img alt="Backtracking" src="https://ibpublicimages.s3-us-west-2.amazonaws.com/tutorial/backtracking1.png" width="40%"/>
-
-Backtracking Pseudocode
-
-```javascript
-function pathFound(Position p) {
-  if (p is finish) return true;
-
-  foreach option O from p {
-    boolean isThereAPath = pathFound(O);
-    if (isThereAPath) return true; // We found a path using option O
-  }
-  // We have tried all options from this position and none of the options lead to finish.
-  // Hence there is no solution possible to finish
-  return false;
-}
-```
-
----
-
-### Optimization problem
-
-Optimization problem is the problem of finding the best solution from all feasible solutions
-
-> Optimization problem is the problem that demands Minimum results or Maximum results
-
-There are 3 approaches to solve Optimization problems
-
-1. Greedy Method
-2. Dynamic Programming
-3. Branch and Bound
-
----
-
-### Greedy Algorithm
-
-<!-- https://www.youtube.com/watch?v=HzeK7g8cD0Y -->
-
-**Greedy Method is used for solving optimization problems**
-
-A greedy algorithm is a simple, intuitive algorithm that is used in optimization problems.
-The algorithm makes the **optimal choice at each step** as it attempts to find the **overall optimal** way to solve the entire problem.
-**However, in many problems, a greedy strategy does not produce an optimal solution.**
-
-<br/>
-
-In What case would greedy algorithm fail ie not produce an optimal solution?  
-Consider a tree
-
-```javascript
-                        3
-                   4        7
-                 6   20   9   11
-```
-
-In this case greedy algorithm chooses - 3 -> 7 -> 11 = 21 instead of 3 -> 4 -> 20 = 37  
-as at step 1 among 4 and 7, 7 is the optimal choice and among 9 and 11, 11 is
-
-<br/>
-
-**Greedy Algorithm never reconsiders its choices**
-
-<br/>
-
-When to use greedy method ?  
-Problems on which greedy approach works has 2 properties
-
-1. Should be an Optimization problem (Min or Max is demanded)
-1. Greedy choice property - global optimum can be arrived by choosing local optimum
-1. Optimal Substructure (Simillary to DP) -
-
-<br/>
-
-This is a difference between dp and greedy algorithm -  
-DP is exhaustive and is guaranteed to find a solution,  
-greedy method fails in some cases and never reconsiders its choices
 
 ---
 
@@ -481,6 +394,11 @@ Whenever a new node is added to the stack, an older value return n goes out, hen
    }
    ```
 
+   #### Leetcode problems
+
+   - [Same](problems/same.js)
+   - [Anagram](problems/anagram.js)
+
 1. ### Multiple Pointers Pattern
 
    > Create pointers that correspond to an index or position, and move toward the beginning end or middle based on condition. mostly used on sorted linear structures
@@ -561,6 +479,11 @@ Whenever a new node is added to the stack, an older value return n goes out, hen
    }
    ```
 
+   #### Leetcode problems
+
+   - [Count unique values](problems/countUniqueValues.js)
+   - [Sum zero](problems/sumZero.js)
+
 1. ### Sliding Window Pattern
 
    The Sliding Window Pattern is commonly used in problems that require finding subarrays or sublists that satisfy certain conditions.
@@ -621,6 +544,10 @@ Whenever a new node is added to the stack, an older value return n goes out, hen
    [0,0,0,10,17,16,16] // max is 17 
    */
    ```
+
+   #### Leetcode problems
+
+   [Colorful rope](problems/1578_colourful_rope.ts)
 
 1. ### Divide and Conquer Pattern
 
@@ -1546,6 +1473,12 @@ reverse() {
 - searching is O(n), for array too its O(n)
 - Accessing is O(n), for arrays it is O(1)
 
+#### Leetcode problems
+
+[Reverse linked list](problems/linked_list_reverse_206.js)  
+[Reverse linked list partially](problems/92_reverse_linked_list_2_by_index.ts)
+[linked list cycle](problems/linked_list_cycle_141.js)
+
 ---
 
 ### Doubly Linked Lists
@@ -1670,6 +1603,10 @@ doublyList.display();
 - In JavaScript, you can implement stacks and queues using arrays or linked lists
 - [stack implementation using array](stack.js)
 - [queue implementation using linked list](queue.js)
+
+#### Leetcode problems
+
+[HTML Elements](problems/html_elements_stack.js)
 
 ---
 
@@ -1800,6 +1737,10 @@ find(value){
 
 - Insertion and searching is O(log n) though there are some exceptions
 - Eg 3 -> 17 -> 19 -> 32 -> 63 -> 91
+
+#### Leetcode problems
+
+[Diameter of binary trees](problems/diameter_of_binary_tree.js)
 
 ---
 
@@ -2074,6 +2015,13 @@ console.log(heap.values); // [ 41, 39, 33, 18, 27, 12 ]
 - Time complexity for Insertion - O(log n)
 - Time complexity for Removal - O(log n)
 - Time complexity for Searching - O(n/2) -> O(n)
+
+#### Leetcode problems
+
+[Last stone weight](problems/1046_last_stone_weight.ts)
+[Task scheduler](problems/heap_task_scheduler.js)
+
+<br/>
 
 ### Priority Queue
 
@@ -2842,6 +2790,20 @@ console.log(graph.dijkstra('B','F')); // [ 'B', 'E', 'F' ]
 
 ---
 
+### Optimization problem
+
+Optimization problem is the problem of finding the best solution from all feasible solutions
+
+> Optimization problem is the problem that demands Minimum results or Maximum results
+
+There are 3 approaches to solve Optimization problems
+
+1. Greedy Method
+2. Dynamic Programming
+3. Branch and Bound
+
+---
+
 ## Dynamic Programming
 
 > Method of solving a complex problem by breaking it down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions
@@ -2934,6 +2896,88 @@ console.log(graph.dijkstra('B','F')); // [ 'B', 'E', 'F' ]
 - **Tabulated approch is a lot better then memoized as even the memoized would exceed call stack above fib(100000)**
 - Tablulated version return Infinity for fib(100000) which is math and roundoff, doesnt break though
 
+#### Leetcode problems
+
+[Climb stairs](problems/climbStairs_dp.js)
+[Target sum](problems/dp_target_sum.js)
+
 ---
 
 <!-- https://leetcode.com/discuss/interview-experience/317484/amazon-oa-phone-screen-onsite -->
+
+### Backtracking
+
+- Backtracking is an algorithmic technique that considers searching in every possible combination for solving a computational problem.
+- It is known for solving problems recursively one step at a time and removing those solutions that that do not satisfy the problem constraints at any point of time.
+- It is a refined brute force approach that tries out all the possible solutions and chooses the best possible ones out of them.
+
+### If the current solution is not suitable, then eliminate that and backtrack (go back) and check for other solutions.
+
+<img alt="Backtracking" src="https://ibpublicimages.s3-us-west-2.amazonaws.com/tutorial/backtracking1.png" width="40%"/>
+
+Backtracking Pseudocode
+
+```javascript
+function pathFound(Position p) {
+  if (p is finish) return true;
+
+  foreach option O from p {
+    boolean isThereAPath = pathFound(O);
+    if (isThereAPath) return true; // We found a path using option O
+  }
+  // We have tried all options from this position and none of the options lead to finish.
+  // Hence there is no solution possible to finish
+  return false;
+}
+```
+
+#### Leetcode problems
+
+[Word search](problems/backtracking_word_search.js)
+
+---
+
+### Greedy Algorithm
+
+<!-- https://www.youtube.com/watch?v=HzeK7g8cD0Y -->
+
+**Greedy Method is used for solving optimization problems**
+
+A greedy algorithm is a simple, intuitive algorithm that is used in optimization problems.
+The algorithm makes the **optimal choice at each step** as it attempts to find the **overall optimal** way to solve the entire problem.
+**However, in many problems, a greedy strategy does not produce an optimal solution.**
+
+<br/>
+
+In What case would greedy algorithm fail ie not produce an optimal solution?  
+Consider a tree
+
+```javascript
+                        3
+                   4        7
+                 6   20   9   11
+```
+
+In this case greedy algorithm chooses - 3 -> 7 -> 11 = 21 instead of 3 -> 4 -> 20 = 37  
+as at step 1 among 4 and 7, 7 is the optimal choice and among 9 and 11, 11 is
+
+<br/>
+
+**Greedy Algorithm never reconsiders its choices**
+
+<br/>
+
+When to use greedy method ?  
+Problems on which greedy approach works has 2 properties
+
+1. Should be an Optimization problem (Min or Max is demanded)
+1. Greedy choice property - global optimum can be arrived by choosing local optimum
+1. Optimal Substructure (Simillary to DP) -
+
+<br/>
+
+This is a difference between dp and greedy algorithm -  
+DP is exhaustive and is guaranteed to find a solution,  
+greedy method fails in some cases and never reconsiders its choices
+
+---
