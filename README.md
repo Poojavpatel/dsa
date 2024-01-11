@@ -46,6 +46,7 @@
 - [Dynamic Programming](#dynamic-programming)
 - [Backtracking](#backtracking)
 - [Greedy Algorithm](#greedy-algorithm)
+- [DP vs Greedy algorithm vs Backtracking](#dp-vs-greedy-algorithm-vs-backtracking)
 
 ## Key Takeaways
 
@@ -89,7 +90,10 @@ function multipleArguments(...arr) {
   use count array, eg [2,5,7] to [0, 0, 1, 0, 0, 1, 0, 1], eg - 1046_last_stone_weight
 - If we need the max/min values after every iteration and for that if we need to sort an array in a loop, it can be simplified using a priority queue or heap  
   Eg - 1046. Last Stone Weight
-- ***
+- Use greedy algorithm for problems of the kinds where we first fill the jar with stones, then pebbles, and then sand  
+  Eg: [Maximum units on a truck](problems/1710_max_units_on_truck_greedy.js), [Maximum icecream bars](problems/1833_max_icecream_bars.ts)
+
+<br/>
 
 ### Dynamic Programming Takeaways
 
@@ -2898,8 +2902,9 @@ There are 3 approaches to solve Optimization problems
 
 #### Leetcode problems
 
-[Climb stairs](problems/climbStairs_dp.js)
-[Target sum](problems/dp_target_sum.js)
+- [Climb stairs](problems/climbStairs_dp.js)
+- [Target sum](problems/dp_target_sum.js)
+- [Grid traversal](problems/grid_traversal_memoization_dp.js)
 
 ---
 
@@ -2931,6 +2936,14 @@ function pathFound(Position p) {
 }
 ```
 
+#### Backtracking usecases
+
+- N-Queens Problem - The N-Queens problem is a classic chessboard problem. Given an N×N chessboard, the task is to place N queens in such a way that no two queens threaten each other. In other words, no two queens should share the same row, column, or diagonal.  
+  For N=8, a solution involves placing 8 queens on the chessboard in such a way that no two queens attack each other.
+- Sudoku is a number-placement puzzle. The objective is to fill a 9×9 grid with digits from 1 to 9 in such a way that each row, each column, and each of the nine 3×3 subgrids that compose the grid contain all of the digits from 1 to 9 without repetition.
+- Permutations - The task is to generate all possible arrangements of a set of elements. In the context of permutations, the order of elements matters.  
+  For a set {1, 2, 3}, the permutations would be {1, 2, 3}, {1, 3, 2}, {2, 1, 3}, {2, 3, 1}, {3, 1, 2}, {3, 2, 1}.
+
 #### Leetcode problems
 
 [Word search](problems/backtracking_word_search.js)
@@ -2961,11 +2974,7 @@ Consider a tree
 In this case greedy algorithm chooses - 3 -> 7 -> 11 = 21 instead of 3 -> 4 -> 20 = 37  
 as at step 1 among 4 and 7, 7 is the optimal choice and among 9 and 11, 11 is
 
-<br/>
-
-**Greedy Algorithm never reconsiders its choices**
-
-<br/>
+> Greedy Algorithm never reconsiders its choices
 
 When to use greedy method ?  
 Problems on which greedy approach works has 2 properties
@@ -2974,10 +2983,49 @@ Problems on which greedy approach works has 2 properties
 1. Greedy choice property - global optimum can be arrived by choosing local optimum
 1. Optimal Substructure (Simillary to DP) -
 
-<br/>
+> This is a difference between dp and greedy algorithm -  
+> DP is exhaustive and is guaranteed to find a solution,  
+> greedy method fails in some cases and never reconsiders its choices
 
-This is a difference between dp and greedy algorithm -  
-DP is exhaustive and is guaranteed to find a solution,  
-greedy method fails in some cases and never reconsiders its choices
+#### Greddy algorithm usecases
+
+- Coin Change Problem - Given a set of coins with different denominations and a total amount of money, find the minimum number of coins needed to make up that amount.  
+  If the coins are [1, 2, 5] and the amount is 11, the answer is 3 (two 5-coins and one 1-coin).
+
+- Huffman Coding - Huffman coding is a compression algorithm that assigns variable-length codes to input characters based on their frequencies. It ensures that more frequent characters have shorter codes.  
+  For a given set of characters and their frequencies, the algorithm constructs a binary tree where shorter codes represent more frequent characters.
+
+- Scheduling - Scheduling involves arranging tasks or jobs to be executed over time, subject to certain constraints or objectives. This can include minimizing completion time, maximizing resource utilization, etc.  
+  In job scheduling, tasks with different processing times need to be scheduled on machines to minimize the total completion time.
+
+**My take:**  
+Use greedy algorithm for problems of the kinds where we first fill the jar with stones, then pebbles, and then sand  
+Eg Maximum units on a truck, where we select max unit boxes first, then second max unit box, then third and so on  
+Maximum icecream bars, where we select icecreams with least cost first, then the second least cost and so on
+
+#### Leetcode problems
+
+- [Maximum units on a truck](problems/1710_max_units_on_truck_greedy.js)
+- [Maximum icecream bars](problems/1833_max_icecream_bars.ts)
 
 ---
+
+### DP vs Greedy algorithm vs Backtracking
+
+#### Dynamic Programming:
+
+- Idea: Dynamic programming is a method for solving problems by breaking them down into smaller subproblems and solving each subproblem only once, storing the solutions to subproblems to avoid redundant work.
+- Approach: It involves solving subproblems and building up a solution incrementally. It uses memoization (storing intermediate results) or tabulation (building a table) to avoid recomputing the same subproblems.
+- Use Cases: Dynamic programming is suitable for problems with overlapping subproblems and optimal substructure. Classic examples include the knapsack problem, longest common subsequence, and shortest path problems.
+
+#### Greedy Algorithm:
+
+- Idea: Greedy algorithms make locally optimal choices at each stage with the hope of finding a global optimum.
+- Approach: At each step, it selects the best available option without considering the future consequences. It doesn't reconsider previous choices.
+- Use Cases: Greedy algorithms are suitable for problems where a locally optimal choice also leads to a globally optimal solution. Examples include coin change problem, Huffman coding, and scheduling.
+
+#### Backtracking:
+
+- Idea: Backtracking is a trial-and-error-based algorithmic paradigm used to solve optimization problems. It explores all possible solutions by trying different choices and backtracks when a choice leads to an infeasible solution.
+- Approach: It systematically explores the solution space by making choices, and if a choice leads to a dead-end, it backtracks and tries a different choice. It is often implemented using recursion.
+- Use Cases: Backtracking is useful when there are multiple solutions to a problem, and it's necessary to find all solutions. Examples include the N-Queens problem, Sudoku, and generating all permutations.
