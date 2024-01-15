@@ -92,6 +92,9 @@ function multipleArguments(...arr) {
   Eg - 1046. Last Stone Weight
 - Use greedy algorithm for problems of the kinds where we first fill the jar with stones, then pebbles, and then sand  
   Eg: [Maximum units on a truck](problems/1710_max_units_on_truck_greedy.js), [Maximum icecream bars](problems/1833_max_icecream_bars.ts)
+- If in a problem we need to calculate all possible permutations and combinations, it can be done using backtracking
+  Eg: [Binary Watch](problems/401_binary_watch.ts)
+- h
 
 <br/>
 
@@ -2916,25 +2919,57 @@ There are 3 approaches to solve Optimization problems
 - It is known for solving problems recursively one step at a time and removing those solutions that that do not satisfy the problem constraints at any point of time.
 - It is a refined brute force approach that tries out all the possible solutions and chooses the best possible ones out of them.
 
-### If the current solution is not suitable, then eliminate that and backtrack (go back) and check for other solutions.
+**If the current solution is not suitable, then eliminate that and backtrack (go back) and check for other solutions.**
 
 <img alt="Backtracking" src="https://ibpublicimages.s3-us-west-2.amazonaws.com/tutorial/backtracking1.png" width="40%"/>
 
-Backtracking Pseudocode
+> Backtracking is not for optimization problems (best path, max or min), Backtracking is when you have multiple solutions and you want all of those solutions
 
-```javascript
-function pathFound(Position p) {
-  if (p is finish) return true;
+#### Backtracking uses DFS
 
-  foreach option O from p {
-    boolean isThereAPath = pathFound(O);
-    if (isThereAPath) return true; // We found a path using option O
-  }
-  // We have tried all options from this position and none of the options lead to finish.
-  // Hence there is no solution possible to finish
-  return false;
-}
+Snippet from [Binary watch leetcode problem](problems/401_binary_watch.ts)
+
+```ts
+/* 
+Since this is a backtracking problem, lets think of how backtracking works
+Consider we have a starting point S, and 3 ways to go A B C, from A we can go to A1 A2 A3, and similarly from B C as well
+Suppose our goal is at C2, how we would go by backtracking would be
+S-A-A1, S-A-A2, S-A-A3, S-B-B1, S-B-B2, S-B-B3, S-C-C1, S-C-C2-Goal
+This is exactly how DFS traversal would go
+We implement DFS using stack, or recursion (call-stack)
+*/
 ```
+
+#### Example of Permutations Combinations
+
+Consider we have 3 students (boy1, boy2, girl1) and 3 seats  
+How many ways can we arrange them in : 3 x 2 x 1 ie 3! = 6 ways  
+We want to print all of those arrangements  
+To do that lets visualize solutions as a tree
+
+```ts
+                             s
+
+          b1                 b2                  g1
+    b2         g1      b1        g1        b1         b2
+
+    g1         b2      g1        b1        b2         b1
+```
+
+Each leaf to root path represnts one of the 6 solutions  
+Backtracking problems usually have constrains, so lets impose one here, girl should not sit in middle
+This condition is called as bounding function
+
+```ts
+                             s
+
+          b1                 b2                  g1
+    b2         g1      b1        g1        b1         b2
+
+    g1                 g1                  b2         b1
+```
+
+After applying constrain we have 4 solutions instead of 6
 
 #### Backtracking usecases
 
@@ -2944,9 +2979,40 @@ function pathFound(Position p) {
 - Permutations - The task is to generate all possible arrangements of a set of elements. In the context of permutations, the order of elements matters.  
   For a set {1, 2, 3}, the permutations would be {1, 2, 3}, {1, 3, 2}, {2, 1, 3}, {2, 3, 1}, {3, 1, 2}, {3, 2, 1}.
 
+**My take:**  
+If in a problem we need to calculate all possible permutations and combinations, it can be done using backtracking
+
+#### Backtracking Pseudocode
+
+```c
+def is_valid_state(state):
+    # check if it is a valid solution
+    return True
+
+def get_candidates(state):
+    return []
+
+def search(state, solutions):
+    if is_valid_state(state):
+        solutions.append(state.copy())
+        # return
+
+    for candidate in get_candidates(state):
+        state.add(candidate)
+        search(state, solutions)
+        state.remove(candidate)
+
+def solve():
+    solutions = []
+    state = set()
+    search(state, solutions)
+    return solutions
+```
+
 #### Leetcode problems
 
-[Word search](problems/backtracking_word_search.js)
+- [Word search](problems/backtracking_word_search.js)
+- [Binary Watch](problems/401_binary_watch.ts)
 
 ---
 
