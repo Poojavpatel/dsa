@@ -57,7 +57,7 @@ function readBinaryWatch2(turnedOn: number): string[] {
   return times;
 }
 
-console.log(readBinaryWatch2(2));
+// console.log(readBinaryWatch2(2));
 /* 
 [
   '10:00', '9:00', '8:32', '8:16', '8:08',
@@ -92,6 +92,202 @@ We push values to the stack till it is full
 Repeat steps 1 and 2 till all possibilities are checked
 
 This is very tough to implement, also its similar to running multiple loops inside loops
+*/
 
+/* 
+Until now, we were thinking of a tree in terms like the nodes can be 8 4 2 1 etc
+Instead lets approach this the way we approached backtracking problem to find all permutations and combinations problems/array_target_sum.js
 
+Our root of tree is 00:00
+in the first level we consider two nodes, left considers 8 is on, right side 8 is off
+on the next level left :4 ON : 4 OFF, these will be under both 8 ON and 8 OFF, total 4 leafs
+next level 2 ON and 2 OFF, and so on
+At any level, if hours > 11 or minutes > 59, we stop exploring that node any further
+We do this using DFS
+*/
+
+function getAllPossibleTimes(treeLevel: number): string[] {
+  const leds = [8, 4, 2, 1, 32, 16, 8, 4, 2, 1];
+  const times: string[] = [];
+  let timeString: string = "";
+  let index: number = 0;
+
+  /* [currentHour, currentMinute, nextIndex] */
+  const stack = [[0, 0, 0]];
+
+  while (stack.length) {
+    const [currentHour, currentMinute, index] = stack.pop()!;
+
+    if (currentHour > 11 || currentMinute > 59) {
+      continue;
+    }
+
+    if (index == treeLevel) {
+      timeString = `${currentHour}:${
+        currentMinute < 10 ? "0" : ""
+      }${currentMinute}`;
+      times.push(timeString);
+    }
+
+    if (index < leds.length) {
+      /* leds[i] turned OFF */
+      stack.push([currentHour, currentMinute, index + 1]);
+
+      /* leds[i] turned ON */
+      if (index < 4) {
+        /* Add to hour */
+        stack.push([currentHour + leds[index], currentMinute, index + 1]);
+      } else {
+        /* Add to minutes */
+        stack.push([currentHour, currentMinute + leds[index], index + 1]);
+      }
+    }
+  }
+
+  console.log(times.length);
+  return times;
+}
+
+// console.log(getAllPossibleTimes(3));
+
+/* 
+The above function correctly returns all possible values at a tree level
+eg 1 ['8:00' '0:00']
+2 [ '8:00', '4:00', '0:00' ] // here 12:00 is discarded as it is not valid time
+3 [ '10:00', '8:00', '6:00', '4:00', '2:00', '0:00' ]
+9 (max level) array of size 300 // 2 raised to 10 is 1024, but since we reject all non valid times, 360 is correct
+
+These are all possible valid permutations, but we still need a way to compute with turnedOn input
+
+One modification we can do is to keep a track of ledsTurnedOn on a path, if it goes above 3, we stop exploring that sub tree
+*/
+
+function readBinaryWatch(turnedOn: number): string[] {
+  const leds = [8, 4, 2, 1, 32, 16, 8, 4, 2, 1];
+  const times: string[] = [];
+  let timeString: string = "";
+
+  /* [currentHour, currentMinute, nextIndex, ledsTurnedOn] */
+  const stack = [[0, 0, 0, 0]];
+
+  while (stack.length) {
+    const [currentHour, currentMinute, index, ledsTurnedOn] = stack.pop()!;
+
+    if (currentHour > 11 || currentMinute > 59) {
+      continue;
+    }
+
+    if (ledsTurnedOn > turnedOn) {
+      continue;
+    }
+
+    if (ledsTurnedOn == turnedOn) {
+      timeString = `${currentHour}:${
+        currentMinute < 10 ? "0" : ""
+      }${currentMinute}`;
+      times.push(timeString);
+
+      continue;
+    }
+
+    if (index < leds.length) {
+      /* leds[i] turned OFF */
+      stack.push([currentHour, currentMinute, index + 1, ledsTurnedOn]);
+
+      /* leds[i] turned ON */
+      if (index < 4) {
+        /* Add to hour */
+        stack.push([
+          currentHour + leds[index],
+          currentMinute,
+          index + 1,
+          ledsTurnedOn + 1,
+        ]);
+      } else {
+        /* Add to minutes */
+        stack.push([
+          currentHour,
+          currentMinute + leds[index],
+          index + 1,
+          ledsTurnedOn + 1,
+        ]);
+      }
+    }
+  }
+
+  return times;
+}
+
+// console.log(readBinaryWatch(2));
+
+/*
+This solution worked but with bad runtime 63ms (beats only 37.50%) memory 46.19mb (beats only 15.63%)
+To fix space complexity lets use recursion instead of stack
+*/
+
+function readBinaryWatchRecursive(turnedOn: number): string[] {
+  const leds = [8, 4, 2, 1, 32, 16, 8, 4, 2, 1];
+  const times: string[] = [];
+  let timeString: string = "";
+
+  function recursive(
+    currentHour: number,
+    currentMinute: number,
+    index: number,
+    ledsTurnedOn: number
+  ): void {
+    if (currentHour > 11 || currentMinute > 59) {
+      return;
+    }
+
+    if (ledsTurnedOn > turnedOn) {
+      return;
+    }
+
+    if (ledsTurnedOn == turnedOn) {
+      timeString = `${currentHour}:${
+        currentMinute < 10 ? "0" : ""
+      }${currentMinute}`;
+      times.push(timeString);
+
+      return;
+    }
+
+    if (index < leds.length) {
+      /* leds[i] turned ON */
+      if (index < 4) {
+        /* Add to hour */
+        recursive(
+          currentHour + leds[index],
+          currentMinute,
+          index + 1,
+          ledsTurnedOn + 1
+        );
+      } else {
+        /* Add to minutes */
+        recursive(
+          currentHour,
+          currentMinute + leds[index],
+          index + 1,
+          ledsTurnedOn + 1
+        );
+      }
+
+      /* leds[i] turned OFF */
+      recursive(currentHour, currentMinute, index + 1, ledsTurnedOn);
+    }
+  }
+
+  /* currentHour, currentMinute, nextIndex, ledsTurnedOn */
+  recursive(0, 0, 0, 0);
+
+  return times;
+}
+
+console.log(readBinaryWatchRecursive(2));
+
+/*
+Using stack improved memory a lot 43.40mb (beats only 65.63%)
+but runtime got worse form 63ms to 71ms
+To fix time complexity lets use memoization
 */

@@ -9,35 +9,34 @@
 
 */
 
-class Node{
-  constructor(value){
+class Node {
+  constructor(value) {
     this.value = value;
     this.left = null;
     this.right = null;
   }
 }
 
-class Tree{
-  constructor(){
+class Tree {
+  constructor() {
     this.root = null;
   }
-  insert(value){
-    if(!this.root){
+  insert(value) {
+    if (!this.root) {
       this.root = new Node(value);
       return this;
     }
     let node = this.root;
-    while(node){
-      if(value === node.value) return undefined;
-      if(value<node.value){
-        if(!node.left){
+    while (node) {
+      if (value === node.value) return undefined;
+      if (value < node.value) {
+        if (!node.left) {
           node.left = new Node(value);
           return this;
         }
         node = node.left;
-      }
-      else {
-        if(!node.right){
+      } else {
+        if (!node.right) {
           node.right = new Node(value);
           return this;
         }
@@ -46,33 +45,73 @@ class Tree{
     }
   }
   // root left right
-  preOrderDFS(){
+  preOrderDFS() {
     const result = [];
-    function traverse(node){
+    function traverse(node) {
       result.push(node.value);
-      if(node.left) traverse(node.left);
-      if(node.right) traverse(node.right);
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
     }
     traverse(this.root);
     return result;
   }
-  // left root right
-  inOrderDFS(){
+
+  preOrderDFSUsingStack() {
     const result = [];
-    function traverse(node){
-      if(node.left) traverse(node.left);
+    const stack = [];
+    let currentNode = this.root;
+    while (currentNode || stack.length > 0) {
+      while (currentNode) {
+        result.push(currentNode.value);
+        if (currentNode.right) {
+          stack.push(currentNode.right);
+        }
+        currentNode = currentNode.left;
+      }
+      currentNode = stack.pop();
+    }
+    return result;
+  }
+
+  /* 
+    Keep pushing the right of tree in stack
+    Keep exploring the left side, if the left has right, it will be pushed to stack
+  */
+  preOrderDFSUsingStack2() {
+    const result = [];
+    const stack = [];
+    let currentNode = this.root;
+    while (currentNode || stack.length > 0) {
+      if (currentNode) {
+        result.push(currentNode.value);
+        if (currentNode.right) {
+          stack.push(currentNode.right);
+        }
+        currentNode = currentNode.left;
+      } else {
+        currentNode = stack.pop();
+      }
+    }
+    return result;
+  }
+
+  // left root right
+  inOrderDFS() {
+    const result = [];
+    function traverse(node) {
+      if (node.left) traverse(node.left);
       result.push(node.value);
-      if(node.right) traverse(node.right);
+      if (node.right) traverse(node.right);
     }
     traverse(this.root);
     return result;
   }
   // left right root
-  postOrderDFS(){
+  postOrderDFS() {
     const result = [];
-    function traverse(node){
-      if(node.left) traverse(node.left);
-      if(node.right) traverse(node.right);
+    function traverse(node) {
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
       result.push(node.value);
     }
     traverse(this.root);
@@ -87,7 +126,9 @@ tree.insert(15);
 tree.insert(3);
 tree.insert(8);
 tree.insert(20);
-console.log('--tree--', tree);
-console.log('--preOrderDFS--', tree.preOrderDFS());
-console.log('--inOrderDFS--', tree.inOrderDFS());
-console.log('--postOrderDFS--', tree.postOrderDFS());
+console.log("--tree--", tree);
+console.log("--preOrderDFS--", tree.preOrderDFS());
+console.log("--preOrderDFSUsingStack--", tree.preOrderDFSUsingStack());
+console.log("--preOrderDFSUsingStack--", tree.preOrderDFSUsingStack2());
+console.log("--inOrderDFS--", tree.inOrderDFS());
+console.log("--postOrderDFS--", tree.postOrderDFS());

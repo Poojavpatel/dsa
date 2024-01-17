@@ -85,16 +85,17 @@ function multipleArguments(...arr) {
   stack - push pop, queue - push shift, pop is constant time, shift is linear time
 - While storing variables, Instead of using an array [2,5,7] and then checking arr.includes(5)  
   use [0,0,1,0,0,1,0,1] and then check arr[5] == 1  
-  Eg - 73_set_matrix_zero , this increases space complexity but reduces time complexity as arr.includes is O(n) arr[5] is O(1)
+  Eg - [Set matrix zero](problems/73_set_matrix_zero.js) , this increases space complexity but reduces time complexity as arr.includes is O(n) arr[5] is O(1)
 - When you want fast access (like hash) and want sequential order (like array)  
-  use count array, eg [2,5,7] to [0, 0, 1, 0, 0, 1, 0, 1], eg - 1046_last_stone_weight
+  use count array, eg [2,5,7] to [0, 0, 1, 0, 0, 1, 0, 1], eg - [last stone weight](problems/1046_last_stone_weight.ts)
 - If we need the max/min values after every iteration and for that if we need to sort an array in a loop, it can be simplified using a priority queue or heap  
-  Eg - 1046. Last Stone Weight
+  Eg - [last stone weight](problems/1046_last_stone_weight.ts)
 - Use greedy algorithm for problems of the kinds where we first fill the jar with stones, then pebbles, and then sand  
   Eg: [Maximum units on a truck](problems/1710_max_units_on_truck_greedy.js), [Maximum icecream bars](problems/1833_max_icecream_bars.ts)
 - If in a problem we need to calculate all possible permutations and combinations, it can be done using backtracking
   Eg: [Binary Watch](problems/401_binary_watch.ts)
-- h
+- If in a problem we need to calculate all possible permutations and combinations, it can be done using backtracking
+- If in a problem we need all solutions and not the best or worst (max or min) use backtracking. Eg - [Binary watch](problems/401_binary_watch.ts)
 
 <br/>
 
@@ -2984,29 +2985,38 @@ If in a problem we need to calculate all possible permutations and combinations,
 
 #### Backtracking Pseudocode
 
-```c
-def is_valid_state(state):
-    # check if it is a valid solution
-    return True
+```js
+function isValidState(state) {
+  // Check if it is a valid solution
+  return true;
+}
 
-def get_candidates(state):
-    return []
+function getCandidates(state) {
+  // Return an array of candidates for the current state
+  return [];
+}
 
-def search(state, solutions):
-    if is_valid_state(state):
-        solutions.append(state.copy())
-        # return
+function search(state, solutions) {
+  if (isValidState(state)) {
+    solutions.push([...state]); // Make a copy of the state
+    // return; // Uncomment this line if you want to stop after finding the first solution
+  }
 
-    for candidate in get_candidates(state):
-        state.add(candidate)
-        search(state, solutions)
-        state.remove(candidate)
+  for (const candidate of getCandidates(state)) {
+    state.push(candidate);
+    search(state, solutions);
+    state.pop();
+  }
+}
 
-def solve():
-    solutions = []
-    state = set()
-    search(state, solutions)
-    return solutions
+function solve() {
+  const solutions = [];
+  const state = [];
+  search(state, solutions);
+  return solutions;
+}
+
+const result = solve();
 ```
 
 #### Leetcode problems
