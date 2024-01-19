@@ -290,4 +290,6 @@ console.log(readBinaryWatchRecursive(2));
 Using stack improved memory a lot 43.40mb (beats only 65.63%)
 but runtime got worse form 63ms to 71ms
 To fix time complexity lets use memoization
+
+No memoization worked here, as no exact same path is repeated again
 */
