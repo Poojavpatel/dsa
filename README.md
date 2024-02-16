@@ -14,6 +14,7 @@
   - [Multiple Pointers Pattern](#multiple-pointers-pattern)
   - [Sliding Window Pattern](#sliding-window-pattern)
   - [Divide and Conquer Pattern](#divide-and-conquer-pattern)
+  - [Tortoise and Hare Pattern](#tortoise-and-hare-pattern)
 - [Recursion](#recursion)
 - [Searching Algorithms (Linear, Binary, Naive)](#searching-algorithms-linear-binary-naive)
 - [Sorting](#sorting)
@@ -96,6 +97,14 @@ function multipleArguments(...arr) {
   Eg: [Binary Watch](problems/401_binary_watch.ts)
 - If in a problem we need to calculate all possible permutations and combinations, it can be done using backtracking
 - If in a problem we need all solutions and not the best or worst (max or min) use backtracking. Eg - [Binary watch](problems/401_binary_watch.ts)
+- To detect cycle in a linked list, use hare tortoise pattern, two pointers, j at twice the speed of i  
+  Eg: [Linked list cycle](problems/141_linked_list_cycle.js)
+- While merging two sorted arrays, do not forget to add leftover individual elements too  
+  Eg: [Merge sort](sortingAlgorithms/mergeSort.js)  
+  [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/description/)
+- For some sliding window problems, where you need to move the window and remove and add elements from either side, consider using a double-ended-queue
+  Eg: [Sliding window max](problems/239_sliding_window_max.js)
+-
 
 <br/>
 
@@ -585,6 +594,22 @@ Whenever a new node is added to the stack, an older value return n goes out, hen
    // Binary Search - O(log n)
    ```
 
+1. ### Tortoise and Hare Pattern
+
+   The "tortoise and hare" pattern, also known as Floyd's cycle-finding algorithm, is a technique used in data structures and algorithms (DSA) to detect cycles in a sequence, such as a linked list.
+
+   > The concept is to have two pointers, one moving at a slower pace (tortoise) and another moving at a faster pace (hare)
+
+   If there is a cycle in the structure, the fast pointer will eventually catch up to the slow pointer, and they will meet at some point within the cycle.
+
+   #### Leetcode problems
+
+   [Linked list cycle](problems/141_linked_list_cycle.js)
+
+<br/>
+<br/>
+<br/>
+
 ---
 
 ## Tips and Tricks
@@ -740,6 +765,8 @@ function collectOddValues(arr) {
    - Repeatedly dividing the search interval in half
    - Only works on **sorted** structures
    - Time complexity is O(log n)
+
+   [Binary search Implementation](./problems/704_binary_search.ts)
 
 3. ### Search for substring in a string
    Example - search for omg in wowomgzomg  
@@ -1581,6 +1608,12 @@ console.log("\nReversed Doubly Linked List:");
 doublyList.reverse();
 doublyList.display();
 ```
+
+#### Leetcode problems
+
+For some sliding window problems, where you need to move the window and remove and add elements from either side, consider using a double-ended-queue
+
+[Sliding window max](problems/239_sliding_window_max.js)
 
 ---
 
