@@ -99,7 +99,7 @@ function spiralOrder(matrix) {
     output.push(matrix[0][j]);
   }
 
-  // start from [0, 7]
+  // start from [0, rightLeftTraverse]
   // down i++ for upDownTraverse, upDownTraverse--
   // left j-- for rightLeftTraverse, rightLeftTraverse--
   // up i-- for upDownTraverse, upDownTraverse--
@@ -109,10 +109,10 @@ function spiralOrder(matrix) {
   let j = rightLeftTraverse;
   let iterations = 0;
 
-  while (rightLeftTraverse > 0 && upDownTraverse > 0) {
+  while (output.length < rows * columns) {
     // down
     iterations = upDownTraverse;
-    while (iterations > 0) {
+    while (iterations > 0 && output.length < rows * columns) {
       output.push(matrix[i][j]);
       i++;
       iterations--;
@@ -121,7 +121,7 @@ function spiralOrder(matrix) {
 
     // left
     iterations = rightLeftTraverse;
-    while (iterations > 0) {
+    while (iterations > 0 && output.length < rows * columns) {
       output.push(matrix[i][j]);
       j--;
       iterations--;
@@ -130,7 +130,7 @@ function spiralOrder(matrix) {
 
     // up
     iterations = upDownTraverse;
-    while (iterations > 0) {
+    while (iterations > 0 && output.length < rows * columns) {
       output.push(matrix[i][j]);
       i--;
       iterations--;
@@ -139,15 +139,12 @@ function spiralOrder(matrix) {
 
     // right
     iterations = rightLeftTraverse;
-    while (iterations > 0) {
+    while (iterations > 0 && output.length < rows * columns) {
       output.push(matrix[i][j]);
       j++;
       iterations--;
     }
     rightLeftTraverse--;
-
-    console.log("upDownTraverse", upDownTraverse);
-    console.log("rightLeftTraverse", rightLeftTraverse);
   }
 
   return output;
@@ -163,3 +160,23 @@ console.log(
     [41, 42, 43, 44, 45, 46, 47, 48],
   ])
 );
+
+console.log(
+  spiralOrder([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+  ])
+);
+
+/*
+We can also do 
+dir = {
+  {0, 1},
+  {1, 0},
+  {0, -1},
+  {-1, 0}
+};
+
+To switch directions d = (d+1) % 4;
+*/

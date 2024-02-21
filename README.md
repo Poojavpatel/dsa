@@ -104,6 +104,10 @@ function multipleArguments(...arr) {
   [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/description/)
 - For some sliding window problems, where you need to move the window and remove and add elements from either side, consider using a double-ended-queue
   Eg: [Sliding window max](problems/239_sliding_window_max.js)
+- To cyclically loop through an array, use the modulo operator `index = (index + 1) % array.length`
+- To loop over a directions array `directions = ["up", "right", "down", "left"]` cyclically, `d = (d+1) % 4`  
+  Here d will take values up, right, down, left, up, right, ...  
+  Eg [Spiral matrix](problems/54_spiral_matrix.js)
 -
 
 <br/>
